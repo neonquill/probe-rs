@@ -74,6 +74,8 @@ impl ArmDebugSequence for Atsaml10 {
         // Sleep for 10 ms more.
         thread::sleep(Duration::from_millis(10));
 
+        // XXX Figure out how to re-use this block from mod.rs.
+
         // TODO: Use atomic block
 
         // Ensure current debug interface is in reset state.
