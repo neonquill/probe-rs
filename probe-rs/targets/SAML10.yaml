@@ -1,0 +1,312 @@
+---
+name: SAML10
+manufacturer: ~
+variants:
+  - name: ATSAML10D14A
+    part: ~
+    cores:
+      - name: main
+        type: armv8m
+        core_access_options:
+          Arm:
+            ap: 0
+            psel: 0
+            debug_base: ~
+            cti_base: ~
+    memory_map:
+      - Ram:
+          name: ~
+          range:
+            start: 536870912
+            end: 536875008
+          is_boot_memory: false
+          cores:
+            - main
+      - Nvm:
+          name: ~
+          range:
+            start: 0
+            end: 16384
+          is_boot_memory: true
+          cores:
+            - main
+    flash_algorithms:
+      - atsaml10_16
+      - atsaml10_eeprom
+      - atsaml10_urow
+  - name: ATSAML10D15A
+    part: ~
+    cores:
+      - name: main
+        type: armv8m
+        core_access_options:
+          Arm:
+            ap: 0
+            psel: 0
+            debug_base: ~
+            cti_base: ~
+    memory_map:
+      - Ram:
+          name: ~
+          range:
+            start: 536870912
+            end: 536879104
+          is_boot_memory: false
+          cores:
+            - main
+      - Nvm:
+          name: ~
+          range:
+            start: 0
+            end: 32768
+          is_boot_memory: true
+          cores:
+            - main
+    flash_algorithms:
+      - atsaml10_32
+      - atsaml10_eeprom
+      - atsaml10_urow
+  - name: ATSAML10D16A
+    part: ~
+    cores:
+      - name: main
+        type: armv8m
+        core_access_options:
+          Arm:
+            ap: 0
+            psel: 0
+            debug_base: ~
+            cti_base: ~
+    memory_map:
+      - Ram:
+          name: ~
+          range:
+            start: 536870912
+            end: 536887296
+          is_boot_memory: false
+          cores:
+            - main
+      - Nvm:
+          name: ~
+          range:
+            start: 0
+            end: 65536
+          is_boot_memory: true
+          cores:
+            - main
+    flash_algorithms:
+      - atsaml10_64
+      - atsaml10_eeprom
+      - atsaml10_urow
+  - name: ATSAML10E14A
+    part: ~
+    cores:
+      - name: main
+        type: armv8m
+        core_access_options:
+          Arm:
+            ap: 0
+            psel: 0
+            debug_base: ~
+            cti_base: ~
+    memory_map:
+      - Ram:
+          name: ~
+          range:
+            start: 536870912
+            end: 536875008
+          is_boot_memory: false
+          cores:
+            - main
+      - Nvm:
+          name: ~
+          range:
+            start: 0
+            end: 16384
+          is_boot_memory: true
+          cores:
+            - main
+    flash_algorithms:
+      - atsaml10_16
+      - atsaml10_eeprom
+      - atsaml10_urow
+  - name: ATSAML10E15A
+    part: ~
+    cores:
+      - name: main
+        type: armv8m
+        core_access_options:
+          Arm:
+            ap: 0
+            psel: 0
+            debug_base: ~
+            cti_base: ~
+    memory_map:
+      - Ram:
+          name: ~
+          range:
+            start: 536870912
+            end: 536879104
+          is_boot_memory: false
+          cores:
+            - main
+      - Nvm:
+          name: ~
+          range:
+            start: 0
+            end: 32768
+          is_boot_memory: true
+          cores:
+            - main
+    flash_algorithms:
+      - atsaml10_32
+      - atsaml10_eeprom
+      - atsaml10_urow
+  - name: ATSAML10E16A
+    part: ~
+    cores:
+      - name: main
+        type: armv8m
+        core_access_options:
+          Arm:
+            ap: 0
+            psel: 0
+            debug_base: ~
+            cti_base: ~
+    memory_map:
+      - Ram:
+          name: ~
+          range:
+            start: 536870912
+            end: 536887296
+          is_boot_memory: false
+          cores:
+            - main
+      - Nvm:
+          name: ~
+          range:
+            start: 0
+            end: 65536
+          is_boot_memory: true
+          cores:
+            - main
+    flash_algorithms:
+      - atsaml10_64
+      - atsaml10_eeprom
+      - atsaml10_urow
+flash_algorithms:
+  - name: atsaml10_16
+    description: ATSAML10 16kB Flash
+    default: true
+    instructions: ELVytjFKEQcKYDFKE34MJCNDE3YtSh4yCmAvSS1KSmABIgpyHiIKdStKLEkgMlGAK0lJRAhgACAQvQAgcEeBBwvRJUnIYSVIQB8IgAiLQAf81Qh9wAYADwDQASBwR/i1FUaCByzRyRyMCAdGG0mkABlIPTEBgAGLSQf81QF9yQYJDx3RHuBALAHZQCYL4CZGCeBoHADwJvgpeAACCEMBxyQfLR02HwAu89EMSQpIyR4BgAGLSQf81QB9wAYADwHQASD4vQAs3tEAIPi9BAABAAAQAEAeAAQAAEAAQQelAAAEAAAAA3jCeBlGQ3gSBhsCGUODeMB4GwQZQxFDCQIJCgAGCENwRwAAAAAAAAAAAAAAAAAA
+    load_address: ~
+    pc_init: 1
+    pc_uninit: 59
+    pc_program_page: 95
+    pc_erase_sector: 63
+    pc_erase_all: ~
+    data_section_offset: 264
+    flash_properties:
+      address_range:
+        start: 0
+        end: 16384
+      page_size: 1024
+      erased_byte_value: 255
+      program_page_timeout: 100
+      erase_sector_timeout: 1000
+      sectors:
+        - size: 256
+          address: 0
+    cores: []
+  - name: atsaml10_eeprom
+    description: ATSAML10 2kB Data EEPROM
+    default: true
+    instructions: ELVytjFKEQcKYDFKE34MJCNDE3YtSh4yCmAvSS1KSmABIgpyHiIKdStKLEkgMlGAK0lJRAhgACAQvQAgcEeBBwvRJUnIYSVIQB8IgAiLQAf81Qh9wAYADwDQASBwR/i1FUaCByzRyRyMCAdGG0mkABlIPTEBgAGLSQf81QF9yQYJDx3RHuBALAHZQCYL4CZGCeBoHADwJvgpeAACCEMBxyQfLR02HwAu89EMSQpIyR4BgAGLSQf81QB9wAYADwHQASD4vQAs3tEAIPi9BAABAAAQAEAeAAQAAEAAQQelAAAEAAAAA3jCeBlGQ3gSBhsCGUODeMB4GwQZQxFDCQIJCgAGCENwRwAAAAAAAAAAAAAAAAAA
+    load_address: ~
+    pc_init: 1
+    pc_uninit: 59
+    pc_program_page: 95
+    pc_erase_sector: 63
+    pc_erase_all: ~
+    data_section_offset: 264
+    flash_properties:
+      address_range:
+        start: 4194304
+        end: 4196352
+      page_size: 64
+      erased_byte_value: 255
+      program_page_timeout: 100
+      erase_sector_timeout: 1000
+      sectors:
+        - size: 256
+          address: 0
+    cores: []
+  - name: atsaml10_urow
+    description: ATSAML10 UROW
+    default: false
+    instructions: ELVytjFKEQcKYDFKE34MJCNDE3YtSh4yCmAvSS1KSmABIgpyHiIKdStKLEkgMlGAK0lJRAhgACAQvQAgcEeBBwvRJUnIYSVIQB8IgAiLQAf81Qh9wAYADwDQASBwR/i1FUaCByzRyRyMCAdGG0mkABlIPTEBgAGLSQf81QF9yQYJDx3RHuBALAHZQCYL4CZGCeBoHADwJvgpeAACCEMBxyQfLR02HwAu89EMSQpIyR4BgAGLSQf81QB9wAYADwHQASD4vQAs3tEAIPi9BAABAAAQAEAeAAQAAEAAQQelAAAEAAAAA3jCeBlGQ3gSBhsCGUODeMB4GwQZQxFDCQIJCgAGCENwRwAAAAAAAAAAAAAAAAAA
+    load_address: ~
+    pc_init: 1
+    pc_uninit: 59
+    pc_program_page: 95
+    pc_erase_sector: 63
+    pc_erase_all: ~
+    data_section_offset: 264
+    flash_properties:
+      address_range:
+        start: 8404992
+        end: 8405248
+      page_size: 8
+      erased_byte_value: 255
+      program_page_timeout: 100
+      erase_sector_timeout: 1000
+      sectors:
+        - size: 256
+          address: 0
+    cores: []
+  - name: atsaml10_32
+    description: ATSAML10 32kB Flash
+    default: true
+    instructions: ELVytjFKEQcKYDFKE34MJCNDE3YtSh4yCmAvSS1KSmABIgpyHiIKdStKLEkgMlGAK0lJRAhgACAQvQAgcEeBBwvRJUnIYSVIQB8IgAiLQAf81Qh9wAYADwDQASBwR/i1FUaCByzRyRyMCAdGG0mkABlIPTEBgAGLSQf81QF9yQYJDx3RHuBALAHZQCYL4CZGCeBoHADwJvgpeAACCEMBxyQfLR02HwAu89EMSQpIyR4BgAGLSQf81QB9wAYADwHQASD4vQAs3tEAIPi9BAABAAAQAEAeAAQAAEAAQQelAAAEAAAAA3jCeBlGQ3gSBhsCGUODeMB4GwQZQxFDCQIJCgAGCENwRwAAAAAAAAAAAAAAAAAA
+    load_address: ~
+    pc_init: 1
+    pc_uninit: 59
+    pc_program_page: 95
+    pc_erase_sector: 63
+    pc_erase_all: ~
+    data_section_offset: 264
+    flash_properties:
+      address_range:
+        start: 0
+        end: 32768
+      page_size: 1024
+      erased_byte_value: 255
+      program_page_timeout: 100
+      erase_sector_timeout: 1000
+      sectors:
+        - size: 256
+          address: 0
+    cores: []
+  - name: atsaml10_64
+    description: ATSAML10 64kB Flash
+    default: true
+    instructions: ELVytjFKEQcKYDFKE34MJCNDE3YtSh4yCmAvSS1KSmABIgpyHiIKdStKLEkgMlGAK0lJRAhgACAQvQAgcEeBBwvRJUnIYSVIQB8IgAiLQAf81Qh9wAYADwDQASBwR/i1FUaCByzRyRyMCAdGG0mkABlIPTEBgAGLSQf81QF9yQYJDx3RHuBALAHZQCYL4CZGCeBoHADwJvgpeAACCEMBxyQfLR02HwAu89EMSQpIyR4BgAGLSQf81QB9wAYADwHQASD4vQAs3tEAIPi9BAABAAAQAEAeAAQAAEAAQQelAAAEAAAAA3jCeBlGQ3gSBhsCGUODeMB4GwQZQxFDCQIJCgAGCENwRwAAAAAAAAAAAAAAAAAA
+    load_address: ~
+    pc_init: 1
+    pc_uninit: 59
+    pc_program_page: 95
+    pc_erase_sector: 63
+    pc_erase_all: ~
+    data_section_offset: 264
+    flash_properties:
+      address_range:
+        start: 0
+        end: 65536
+      page_size: 1024
+      erased_byte_value: 255
+      program_page_timeout: 100
+      erase_sector_timeout: 1000
+      sectors:
+        - size: 256
+          address: 0
+    cores: []
