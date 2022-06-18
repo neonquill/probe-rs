@@ -127,7 +127,7 @@ impl ArmDebugSequence for Atsaml10 {
         if let Err(_e) = permissions.erase_all() {
             if !unlocked {
                 // XXX Right way to do this?
-                log::warn!("Chip is locked (debug access level: DAL == 2)");
+                log::warn!("Chip is locked (debug access level: DAL == 0)");
                 log::warn!("Need to allow chip erase to continue.");
                 log::warn!("Going to erase anyway!!!!");
                 // XXX ignore for now.
