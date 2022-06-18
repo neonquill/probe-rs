@@ -247,7 +247,7 @@ impl ArmDebugSequence for Atsaml10 {
             if (statusb & Self::BCCD1_BIT) != 0 {
                 let status = memory.read_word_32((Self::DSU_BCC1_ADDR).into())?;
                 if status != Self::SIG_BOOTOK {
-                    log::warn!("Failed to exit to park!: status {}", status);
+                    log::warn!("Failed to exit to park!: status {:x}", status);
                     // XXX Error!
                 }
             }
