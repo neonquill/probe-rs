@@ -529,3 +529,68 @@ now I could follow where things where happening in the code
 
 Switched to modifying `debug_port_setup()` to do a cold connection and things worked fine
 
+
+## 18 June 2022
+
+Current state of the code:
+```
+dwatson@cripps-pink ~/w/f/s/fridge_sensor_rs (master) [1]> cargo flash --release --chip ATSAML10E16A --elf target/thumbv8m.base-none-eabi/release/blink --connect-under-reset
+    Flashing target/thumbv8m.base-none-eabi/release/blink
+        WARN probe_rs::config::target > Using custom sequence for ATSAM10
+        WARN probe_rs::session        > XXXA
+        WARN probe_rs::architecture::arm::sequences::atsam > atsaml10 reset_hardware_assert
+        WARN probe_rs::probe::cmsisdap                     > XXX cmsisdap:swj_pins request out: 128, select: 128, wait: 0
+        WARN probe_rs::probe::cmsisdap                     > XXX cmsisdap:swj_pins response: 131
+        WARN probe_rs::probe::cmsisdap                     > XXX cmsisdap:swj_pins request out: 0, select: 128, wait: 0
+        WARN probe_rs::probe::cmsisdap                     > XXX cmsisdap:swj_pins response: 3
+        WARN probe_rs::probe::cmsisdap                     > XXX cmsisdap:swj_pins request out: 0, select: 129, wait: 0
+        WARN probe_rs::probe::cmsisdap                     > XXX cmsisdap:swj_pins response: 2
+        WARN probe_rs::probe::cmsisdap                     > XXX cmsisdap:swj_pins request out: 128, select: 128, wait: 0
+        WARN probe_rs::probe::cmsisdap                     > XXX cmsisdap:swj_pins response: 130
+        WARN probe_rs::session                             > XXXB
+        WARN probe_rs::session                             > XXXC
+        WARN probe_rs::architecture::arm::sequences        > debug_port_setup
+        WARN probe_rs::session                             > XXXD
+        WARN probe_rs::architecture::arm::sequences        > debug_port_start
+        WARN probe_rs::architecture::arm::sequences::atsam > XXX
+        WARN probe_rs::architecture::arm::sequences::atsam > Read DID 20840100
+        WARN probe_rs::architecture::arm::sequences::atsam > Read STATUSB 4
+        WARN probe_rs::architecture::arm::sequences::atsam > DAL 0
+        WARN probe_rs::architecture::arm::sequences::atsam > Chip is locked (debug access level: DAL == 2)
+        WARN probe_rs::architecture::arm::sequences::atsam > Need to allow chip erase to continue.
+        WARN probe_rs::architecture::arm::sequences::atsam > Going to erase anyway!!!!
+        WARN probe_rs::architecture::arm::sequences::atsam > Erasing chip
+        WARN probe_rs::architecture::arm::sequences::atsam > XXXa1
+        WARN probe_rs::architecture::arm::sequences::atsam > XXXa2
+        WARN probe_rs::architecture::arm::sequences::atsam > XXXa3
+        WARN probe_rs::architecture::arm::sequences::atsam > XXXa4
+        WARN probe_rs::architecture::arm::sequences::atsam > XXXa5
+        WARN probe_rs::architecture::arm::sequences::atsam > XXXa6
+        WARN probe_rs::architecture::arm::sequences::atsam > XXXa7
+        WARN probe_rs::architecture::arm::sequences::atsam > Received status update after 1 cycles
+        WARN probe_rs::architecture::arm::sequences::atsam > XXXa8
+        WARN probe_rs::architecture::arm::sequences::atsam > XXX Chip Erase succeeded
+        WARN probe_rs::architecture::arm::sequences::atsam > XXXa9
+        WARN probe_rs::architecture::arm::sequences::atsam > XXXaa
+        WARN probe_rs::architecture::arm::sequences::atsam > Failed to exit to park!: status 3959423013
+        WARN probe_rs::architecture::arm::sequences::atsam > Chip unlock succeeded!
+        WARN probe_rs::session                             > XXXE
+        WARN probe_rs::architecture::arm::sequences        > debug_core_start
+       Error Connecting to the chip was unsuccessful.
+
+  Caused by:
+          0: A core architecture specific error occurred
+          1: Failed to read register DRW at address 0x0000000c
+          2: An error specific to the selected architecture occurred
+          3: Target device did not respond to request.
+```
+
+Not a big surprise here, the exit to park implementation is a bit sketchy.
+
+Useful links to keep track of:
+
+Generic programmer code:
+https://github.com/ARMmbed/DAPLink
+
+Generic CMSIS-DAP communication documentation:
+https://open-cmsis-pack.github.io/Open-CMSIS-Pack-Spec/main/html/debug_description.html
