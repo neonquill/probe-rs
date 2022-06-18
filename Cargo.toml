@@ -10,7 +10,8 @@ members = [
     "rtthost",
     "smoke-tester",
     "xtask",
-    "target-gen"
+    "target-gen",
+    "probe-rs-debug",
 ]
 
 [profile.release]

@@ -167,12 +167,16 @@ impl Session {
                     }
                 }
 
+                log::warn!("XXXA");
                 probe.inner_attach()?;
 
+                log::warn!("XXXB");
                 let interface = probe.try_into_arm_interface().map_err(|(_, err)| err)?;
 
+                log::warn!("XXXC");
                 let mut interface = interface.initialize(sequence_handle.clone())?;
 
+                log::warn!("XXXD");
                 // Enable debug mode
                 sequence_handle.debug_device_unlock(
                     &mut interface,
@@ -180,6 +184,7 @@ impl Session {
                     &permissions,
                 )?;
 
+                log::warn!("XXXE");
                 {
                     // For each core, setup debugging
                     for i in 0..target.cores.len() {
@@ -213,6 +218,7 @@ impl Session {
                     }
                 }
 
+                log::warn!("XXXF");
                 let session = if attach_method == AttachMethod::UnderReset {
                     {
                         let mut memory_interface = interface.memory_interface(default_memory_ap)?;
@@ -299,6 +305,7 @@ impl Session {
             }
         };
 
+        log::warn!("XXXG");
         session.clear_all_hw_breakpoints()?;
 
         Ok(session)

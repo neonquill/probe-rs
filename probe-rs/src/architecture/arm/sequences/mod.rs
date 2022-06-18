@@ -1,5 +1,6 @@
 //! Debug sequences to operate special requirements ARM targets.
 
+pub mod atsam;
 pub mod nrf53;
 pub mod nxp;
 pub mod stm32;
@@ -396,6 +397,7 @@ pub trait ArmDebugSequence: Send + Sync {
     /// [ARM SVD Debug Description]: http://www.keil.com/pack/doc/cmsis/Pack/html/debug_description.html#resetHardwareAssert
     #[doc(alias = "ResetHardwareAssert")]
     fn reset_hardware_assert(&self, interface: &mut dyn DapProbe) -> Result<(), crate::Error> {
+        log::warn!("reset_hardware_assert");
         let mut n_reset = Pins(0);
         n_reset.set_nreset(true);
 
@@ -410,6 +412,7 @@ pub trait ArmDebugSequence: Send + Sync {
     /// [ARM SVD Debug Description]: http://www.keil.com/pack/doc/cmsis/Pack/html/debug_description.html#resetHardwareDeassert
     #[doc(alias = "ResetHardwareDeassert")]
     fn reset_hardware_deassert(&self, memory: &mut Memory) -> Result<(), crate::Error> {
+        log::warn!("reset_hardware_deassert");
         let interface = memory.get_arm_probe();
 
         let mut n_reset = Pins(0);
@@ -440,6 +443,7 @@ pub trait ArmDebugSequence: Send + Sync {
     /// [ARM SVD Debug Description]: http://www.keil.com/pack/doc/cmsis/Pack/html/debug_description.html#debugPortSetup
     #[doc(alias = "DebugPortSetup")]
     fn debug_port_setup(&self, interface: &mut Box<dyn DapProbe>) -> Result<(), crate::Error> {
+        log::warn!("debug_port_setup");
         // TODO: Handle this differently for ST-Link?
 
         // TODO: Use atomic block
@@ -490,6 +494,7 @@ pub trait ArmDebugSequence: Send + Sync {
         interface: &mut ArmCommunicationInterface<Initialized>,
         dp: DpAddress,
     ) -> Result<(), crate::DebugProbeError> {
+        log::warn!("debug_port_start");
         // Clear all errors.
         // CMSIS says this is only necessary to do inside the `if powered_down`, but
         // without it here, nRF52840 faults in the next access.
@@ -562,6 +567,7 @@ pub trait ArmDebugSequence: Send + Sync {
         debug_base: Option<u64>,
         cti_base: Option<u64>,
     ) -> Result<(), crate::Error> {
+        log::warn!("debug_core_start");
         // Dispatch based on core type (Cortex-A vs M)
         match core_type {
             CoreType::Armv7a => armv7a_core_start(core, debug_base),
@@ -588,6 +594,7 @@ pub trait ArmDebugSequence: Send + Sync {
         core_type: CoreType,
         debug_base: Option<u64>,
     ) -> Result<(), crate::Error> {
+        log::warn!("reset_catch_set");
         // Dispatch based on core type (Cortex-A vs M)
         match core_type {
             CoreType::Armv7a => armv7a_reset_catch_set(core, debug_base),
@@ -614,6 +621,7 @@ pub trait ArmDebugSequence: Send + Sync {
         core_type: CoreType,
         debug_base: Option<u64>,
     ) -> Result<(), crate::Error> {
+        log::warn!("reset_catch_clear");
         // Dispatch based on core type (Cortex-A vs M)
         match core_type {
             CoreType::Armv7a => armv7a_reset_catch_clear(core, debug_base),
@@ -640,6 +648,7 @@ pub trait ArmDebugSequence: Send + Sync {
         core_type: CoreType,
         debug_base: Option<u64>,
     ) -> Result<(), crate::Error> {
+        log::warn!("reset_system");
         // Dispatch based on core type (Cortex-A vs M)
         match core_type {
             CoreType::Armv7a => armv7a_reset_system(interface, debug_base),
@@ -667,6 +676,7 @@ pub trait ArmDebugSequence: Send + Sync {
         _default_ap: MemoryAp,
         _permissions: &crate::Permissions,
     ) -> Result<(), crate::Error> {
+        log::warn!("debug_device_unlock");
         // Empty by default
         Ok(())
     }
@@ -677,6 +687,7 @@ pub trait ArmDebugSequence: Send + Sync {
     /// [ARM SVD Debug Description]: http://www.keil.com/pack/doc/cmsis/Pack/html/debug_description.html#recoverSupportStart
     #[doc(alias = "RecoverSupportStart")]
     fn recover_support_start(&self, _interface: &mut crate::Memory) -> Result<(), crate::Error> {
+        log::warn!("recover_support_start");
         // Empty by default
         Ok(())
     }
@@ -691,6 +702,7 @@ pub trait ArmDebugSequence: Send + Sync {
         &self,
         _interface: &mut Box<dyn ArmProbeInterface>,
     ) -> Result<(), crate::Error> {
+        log::warn!("debug_core_stop");
         // Empty by default
         Ok(())
     }

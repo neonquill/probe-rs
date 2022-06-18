@@ -724,7 +724,16 @@ impl RawDapAccess for CmsisDap {
     ) -> Result<u32, DebugProbeError> {
         let request = SWJPinsRequest::from_raw_values(pin_out as u8, pin_select as u8, pin_wait);
 
+        log::warn!(
+            "XXX cmsisdap:swj_pins request out: {}, select: {}, wait: {}",
+            pin_out,
+            pin_select,
+            pin_wait
+        );
+
         let Pins(response) = commands::send_command(&mut self.device, request)?;
+
+        log::warn!("XXX cmsisdap:swj_pins response: {:?}", response);
 
         Ok(response as u32)
     }
