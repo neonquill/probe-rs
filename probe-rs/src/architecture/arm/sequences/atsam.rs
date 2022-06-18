@@ -5,14 +5,8 @@ use std::thread;
 use std::time::Duration;
 
 use super::ArmDebugSequence;
-use super::PortType;
 use crate::architecture::arm::ap::MemoryAp;
-use crate::architecture::arm::dp::DPIDR;
-use crate::architecture::arm::{
-    communication_interface::{DapProbe, Register},
-    ArmProbeInterface, Pins,
-};
-use crate::DebugProbeError;
+use crate::architecture::arm::{communication_interface::DapProbe, ArmProbeInterface, Pins};
 
 /// The sequence handle for the ATSAML10 set of chips.
 pub struct Atsaml10(());
@@ -43,8 +37,8 @@ impl Atsaml10 {
 }
 
 impl ArmDebugSequence for Atsaml10 {
-    fn debug_port_setup(&self, interface: &mut Box<dyn DapProbe>) -> Result<(), crate::Error> {
-        log::warn!("atsaml10 debug_port_setup");
+    fn reset_hardware_assert(&self, interface: &mut dyn DapProbe) -> Result<(), crate::Error> {
+        log::warn!("atsaml10 reset_hardware_assert");
 
         let mut pin_out = Pins(0);
         let mut pin_mask = Pins(0);
@@ -73,43 +67,6 @@ impl ArmDebugSequence for Atsaml10 {
 
         // Sleep for 10 ms more.
         thread::sleep(Duration::from_millis(10));
-
-        // XXX Figure out how to re-use this block from mod.rs.
-
-        // TODO: Use atomic block
-
-        // Ensure current debug interface is in reset state.
-        interface.swj_sequence(51, 0x0007_FFFF_FFFF_FFFF)?;
-
-        // Make sure the debug port is in the correct mode based on what the probe
-        // has selected via active_protocol
-        match interface.active_protocol() {
-            Some(crate::WireProtocol::Jtag) => {
-                // Execute SWJ-DP Switch Sequence SWD to JTAG (0xE73C).
-                interface.swj_sequence(16, 0xE73C)?;
-            }
-            Some(crate::WireProtocol::Swd) => {
-                // Execute SWJ-DP Switch Sequence JTAG to SWD (0xE79E).
-                // Change if SWJ-DP uses deprecated switch code (0xEDB6).
-                interface.swj_sequence(16, 0xE79E)?;
-            }
-            _ => {
-                return Err(crate::Error::Probe(DebugProbeError::NotImplemented(
-                    "Cannot detect current protocol",
-                )));
-            }
-        }
-
-        interface.swj_sequence(51, 0x0007_FFFF_FFFF_FFFF)?; // > 50 cycles SWDIO/TMS High.
-        interface.swj_sequence(3, 0x00)?; // At least 2 idle cycles (SWDIO/TMS Low).
-
-        // End of atomic block.
-
-        // Read DPIDR to enable SWD interface.
-        let _ = interface.raw_read_register(PortType::DebugPort, DPIDR::ADDRESS);
-
-        // TODO: Figure a way how to do this.
-        // interface.read_dpidr()?;
 
         Ok(())
     }
