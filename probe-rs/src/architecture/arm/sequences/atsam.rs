@@ -72,14 +72,13 @@ impl Atsaml10 {
 
         Ok(dal == 2)
     }
-}
 
-impl ArmDebugSequence for Atsaml10 {
-    fn reset_hardware_assert(&self, interface: &mut dyn DapProbe) -> Result<(), crate::Error> {
-        log::warn!("atsaml10 reset_hardware_assert");
-
+    /// Performs a cold plugging sequence.
+    fn do_cold_plug(&self, interface: &mut dyn DapProbe) -> Result<(), crate::Error> {
         let mut pin_out = Pins(0);
         let mut pin_mask = Pins(0);
+
+        log::warn!("atsaml10 do_cold_plug()");
 
         // 1 ms with reset high.
         pin_out.set_nreset(true);
@@ -103,9 +102,15 @@ impl ArmDebugSequence for Atsaml10 {
         interface.swj_pins(pin_out.0 as u32, pin_mask.0 as u32, 0)?;
         thread::sleep(Duration::from_millis(1));
 
-        // Sleep for 10 ms more.
-        // XXX May not need this?
-        thread::sleep(Duration::from_millis(10));
+        Ok(())
+    }
+}
+
+impl ArmDebugSequence for Atsaml10 {
+    fn reset_hardware_assert(&self, interface: &mut dyn DapProbe) -> Result<(), crate::Error> {
+        log::warn!("atsaml10 reset_hardware_assert");
+
+        self.do_cold_plug(interface)?;
 
         // XXX Check to make sure this succeeded?
         // XXX Check CRSTEXT in DSU.STATUSA
