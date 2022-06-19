@@ -594,3 +594,16 @@ https://github.com/ARMmbed/DAPLink
 
 Generic CMSIS-DAP communication documentation:
 https://open-cmsis-pack.github.io/Open-CMSIS-Pack-Spec/main/html/debug_description.html
+
+
+Ok, two things don't make sense.
+First, even though the chip erase appears to be working, I don't ever
+end up back in an unlocked state, that's weird. Not only does it say
+that the chip erase worked, but the board doesn't appear to blink any
+more, so I think the code has been wiped.
+
+Second, why am I getting an invalid command error when trying to exit
+to park? Looking at the valid trace, there appears to be a reset happening
+between the erase command and the exit command, which seems weird.
+Also, the diagram in the docs seems to indicate that the reset is part
+of the command?
