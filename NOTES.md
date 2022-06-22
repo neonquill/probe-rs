@@ -715,3 +715,1000 @@ dwatson@cripps-pink ~/w/f/s/fridge_sensor_rs (master)> cargo flash --release --c
 ```
 
 Not sure what went wrong...
+
+
+Same thing, but with trace log level (beginning is missing):
+```
+       DEBUG probe_rs::config::registry > Exact match for chip name: ATSAML10E16A
+        WARN probe_rs::config::target   > Using custom sequence for ATSAM10
+       DEBUG probe_rs::probe::cmsisdap::tools > Searching for CMSIS-DAP probes using libusb
+       TRACE probe_rs::probe::cmsisdap::tools > DAPLink CMSIS-DAP: CMSIS-DAP device with 5 interfaces
+       TRACE probe_rs::probe::cmsisdap::tools > Interface 0 is not HID, skipping
+       TRACE probe_rs::probe::cmsisdap::tools > Interface 1 is not HID, skipping
+       TRACE probe_rs::probe::cmsisdap::tools > Interface 2 is not HID, skipping
+       TRACE probe_rs::probe::cmsisdap::tools >   Interface 3: CMSIS-DAP v1
+       TRACE probe_rs::probe::cmsisdap::tools > Will use interface number 3 for CMSIS-DAPv1
+       DEBUG probe_rs::probe::cmsisdap::tools > Found 1 CMSIS-DAP probes using libusb, searching HID
+       TRACE probe_rs::probe::cmsisdap::tools > CMSIS-DAP device with USB path: "DevSrvsID:4295156326"
+       TRACE probe_rs::probe::cmsisdap::tools >                 product_string: "DAPLink CMSIS-DAP"
+       TRACE probe_rs::probe::cmsisdap::tools >                      interface: 3
+       TRACE probe_rs::probe::cmsisdap::tools > Ignoring duplicate DAPLink CMSIS-DAP (VID: 0d28, PID: 0204, Serial: 0409170280f408bc00000000000000000000000097969906, CmsisDap)
+       DEBUG probe_rs::probe::cmsisdap::tools > Found 1 CMSIS-DAP probes total
+       DEBUG jaylink                          > libusb 1.0.26.11724
+       DEBUG jaylink                          > libusb has capability API: true
+       DEBUG jaylink                          > libusb has HID access: false
+       DEBUG jaylink                          > libusb has hotplug support: true
+       DEBUG jaylink                          > libusb can detach kernel driver: true
+       TRACE probe_rs::probe::cmsisdap::tools > Attempting to open device matching 0d28:0204:0409170280f408bc00000000000000000000000097969906
+       TRACE probe_rs::probe::cmsisdap::tools > Trying device Bus 000 Device 002: ID 21a9:1005
+       TRACE probe_rs::probe::cmsisdap::tools > Trying device Bus 020 Device 030: ID 0d28:0204
+       TRACE probe_rs::probe::cmsisdap::tools > DAPLink CMSIS-DAP: CMSIS-DAP device with 5 interfaces
+       TRACE probe_rs::probe::cmsisdap::tools > Interface 0 is not HID, skipping
+       TRACE probe_rs::probe::cmsisdap::tools > Interface 1 is not HID, skipping
+       TRACE probe_rs::probe::cmsisdap::tools > Interface 2 is not HID, skipping
+       TRACE probe_rs::probe::cmsisdap::tools >   Interface 3: CMSIS-DAP v1
+       TRACE probe_rs::probe::cmsisdap::tools > Will use interface number 3 for CMSIS-DAPv1
+       DEBUG probe_rs::probe::cmsisdap::tools > Could not open 0d28:0204 in CMSIS-DAP v2 mode
+       TRACE probe_rs::probe::cmsisdap::tools > Trying device Bus 020 Device 029: ID 1915:c00a
+       DEBUG probe_rs::probe::cmsisdap::tools > Attempting to open 0d28:0204 in CMSIS-DAP v1 mode
+       DEBUG probe_rs::probe::cmsisdap::commands > Draining probe of any pending data.
+       DEBUG probe_rs::probe::cmsisdap::commands > Attempt 1 to find packet size
+       TRACE probe_rs::probe::cmsisdap::commands > Transmit buffer: [00, 00, FF, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands > Receive buffer: [00, 02, 40, 00]...
+       DEBUG probe_rs::probe::cmsisdap::commands > Success: packet size is 64
+       DEBUG probe_rs::probe::cmsisdap::commands > Configuring probe to use packet size 64
+       TRACE probe_rs::probe::cmsisdap::commands > Transmit buffer: [00, 00, FE, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands > Receive buffer: [00, 01, 04, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands > Transmit buffer: [00, 00, F0, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands > Receive buffer: [00, 01, 31, 00]...
+       DEBUG probe_rs::probe::cmsisdap           > Detected probe capabilities: Capabilities { _swd_implemented: true, _jtag_implemented: false, swo_uart_implemented: false, swo_manchester_implemented: false, _atomic_commands_implemented: true, _test_domain_timer_implemented: true, swo_streaming_trace_implemented: false, _uart_communication_port_implemented: false, uart_com_port_implemented: false }
+        INFO cargo_flash                         > Protocol speed 1000 kHz
+        WARN probe_rs::session                   > XXXA
+       DEBUG probe_rs::probe::cmsisdap           > Attaching to target system (clock = 1000kHz)
+       TRACE probe_rs::probe::cmsisdap::commands > Transmit buffer: [00, 02, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands > Receive buffer: [02, 01, 00]...
+        INFO probe_rs::probe::cmsisdap           > Using protocol SWD
+       TRACE probe_rs::probe::cmsisdap::commands > Transmit buffer: [00, 11, 40, 42, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands > Receive buffer: [11, 00, 42, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands > Transmit buffer: [00, 04, 00, FF, FF, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands > Receive buffer: [04, 00, FF, FF, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands > Transmit buffer: [00, 13, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands > Receive buffer: [13, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands > Transmit buffer: [00, 01, 00, 01, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands > Receive buffer: [01, 00, 01, 00]...
+        WARN probe_rs::architecture::arm::sequences::atsam > atsaml10 reset_hardware_assert
+        WARN probe_rs::architecture::arm::sequences::atsam > atsaml10 do_cold_plug()
+        WARN probe_rs::probe::cmsisdap                     > XXX cmsisdap:swj_pins request out: 128, select: 128, wait: 0
+       TRACE probe_rs::probe::cmsisdap::commands           > Transmit buffer: [00, 10, 80, 80, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands           > Receive buffer: [10, 83, 80, 00]...
+        WARN probe_rs::probe::cmsisdap                     > XXX cmsisdap:swj_pins response: 131
+        WARN probe_rs::probe::cmsisdap                     > XXX cmsisdap:swj_pins request out: 0, select: 128, wait: 0
+       TRACE probe_rs::probe::cmsisdap::commands           > Transmit buffer: [00, 10, 00, 80, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands           > Receive buffer: [10, 03, 80, 00]...
+        WARN probe_rs::probe::cmsisdap                     > XXX cmsisdap:swj_pins response: 3
+        WARN probe_rs::probe::cmsisdap                     > XXX cmsisdap:swj_pins request out: 0, select: 129, wait: 0
+       TRACE probe_rs::probe::cmsisdap::commands           > Transmit buffer: [00, 10, 00, 81, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands           > Receive buffer: [10, 02, 81, 00]...
+        WARN probe_rs::probe::cmsisdap                     > XXX cmsisdap:swj_pins response: 2
+        WARN probe_rs::probe::cmsisdap                     > XXX cmsisdap:swj_pins request out: 128, select: 128, wait: 0
+       TRACE probe_rs::probe::cmsisdap::commands           > Transmit buffer: [00, 10, 80, 80, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands           > Receive buffer: [10, 82, 80, 00]...
+        WARN probe_rs::probe::cmsisdap                     > XXX cmsisdap:swj_pins response: 130
+        WARN probe_rs::session                             > XXXB
+        WARN probe_rs::session                             > XXXC
+        WARN probe_rs::architecture::arm::sequences        > debug_port_setup
+       TRACE probe_rs::probe::cmsisdap::commands           > Transmit buffer: [00, 12, 33, FF, FF, FF, FF, FF, FF, 07, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands           > Receive buffer: [12, 00, FF, FF, FF, FF, FF, FF, 07, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands           > Transmit buffer: [00, 12, 10, 9E, E7, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands           > Receive buffer: [12, 00, 9E, E7, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands           > Transmit buffer: [00, 12, 33, FF, FF, FF, FF, FF, FF, 07, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands           > Receive buffer: [12, 00, FF, FF, FF, FF, FF, FF, 07, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands           > Transmit buffer: [00, 12, 03, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands           > Receive buffer: [12, 00]...
+       DEBUG probe_rs::probe::cmsisdap                     > Adding command to batch: Read(port=DebugPort, addr=0)
+       DEBUG probe_rs::probe::cmsisdap                     > 1 items in batch
+       DEBUG probe_rs::probe::cmsisdap                     > Attempting batch of 1 items
+       TRACE probe_rs::probe::cmsisdap::commands           > Transmit buffer: [00, 05, 00, 01, 02, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands           > Receive buffer: [05, 01, 01, 77, 14, F1, 0B, 00]...
+       DEBUG probe_rs::probe::cmsisdap                     > 1 of batch of 1 items suceeded
+       TRACE probe_rs::probe::cmsisdap                     > Transfer status: ACK
+        WARN probe_rs::session                             > XXXD
+       DEBUG probe_rs::architecture::arm::communication_interface > Selecting DP Default
+        WARN probe_rs::architecture::arm::sequences               > debug_port_start
+       DEBUG probe_rs::architecture::arm::dp                      > Writing DP register ABORT, value=0x0000001e
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=DebugPort, addr=0, data=0x0000001e
+       DEBUG probe_rs::architecture::arm::dp                      > Writing DP register SELECT, value=0x00000000
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=DebugPort, addr=8, data=0x00000000
+       DEBUG probe_rs::architecture::arm::dp                      > Reading DP register CTRL/STAT
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=DebugPort, addr=4)
+       DEBUG probe_rs::probe::cmsisdap                            > 3 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 3 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 03, 00, 1E, 00, 00, 00, 08, 00, 00, 00, 00, 06, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 03, 01, 00, 00, 00, 00, 00, 08, 00, 00, 00, 00, 06, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 3 of batch of 3 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::dp                      > Read    DP register CTRL/STAT, value=0x00000000
+       DEBUG probe_rs::architecture::arm::dp                      > Writing DP register CTRL/STAT, value=0x50000000
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=DebugPort, addr=4, data=0x50000000
+       DEBUG probe_rs::architecture::arm::dp                      > Reading DP register CTRL/STAT
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=DebugPort, addr=4)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 04, 00, 00, 00, 50, 06, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 00, 00, 00, F0, 50, 06, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::dp                      > Read    DP register CTRL/STAT, value=0xf0000000
+       DEBUG probe_rs::architecture::arm::dp                      > Writing DP register CTRL/STAT, value=0x50000f00
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=DebugPort, addr=4, data=0x50000f00
+       DEBUG probe_rs::architecture::arm::dp                      > Reading DP register CTRL/STAT
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=DebugPort, addr=4)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 04, 00, 0F, 00, 50, 06, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 00, 00, 00, F0, 50, 06, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::dp                      > Read    DP register CTRL/STAT, value=0xf0000000
+       DEBUG probe_rs::architecture::arm::dp                      > Reading DP register CTRL/STAT
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=DebugPort, addr=4)
+       DEBUG probe_rs::probe::cmsisdap                            > 1 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 1 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 01, 06, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 01, 01, 00, 00, 00, F0, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 1 of batch of 1 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::dp                      > Read    DP register CTRL/STAT, value=0xf0000000
+       DEBUG probe_rs::architecture::arm::dp                      > Writing DP register CTRL/STAT, value=0xf0000000
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=DebugPort, addr=4, data=0xf0000000
+       TRACE probe_rs::architecture::arm::communication_interface > Searching valid APs
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register IDR
+       DEBUG probe_rs::architecture::arm::communication_interface > Changing AP to 0, AP_BANK_SEL to 15
+       DEBUG probe_rs::architecture::arm::dp                      > Writing DP register SELECT, value=0x000000f0
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=DebugPort, addr=8, data=0x000000f0
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=252)
+       DEBUG probe_rs::probe::cmsisdap                            > 3 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 3 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 03, 04, 00, 00, 00, F0, 08, F0, 00, 00, 00, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 03, 01, 25, 00, 77, 04, F0, 08, F0, 00, 00, 00, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 3 of batch of 3 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    IDR, value=0x4770025
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register IDR
+       DEBUG probe_rs::architecture::arm::communication_interface > Changing AP to 1, AP_BANK_SEL to 15
+       DEBUG probe_rs::architecture::arm::dp                      > Writing DP register SELECT, value=0x010000f0
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=DebugPort, addr=8, data=0x010000f0
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=252)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 08, F0, 00, 00, 01, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 00, 00, 00, 00, 01, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    IDR, value=0x0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register IDR
+       DEBUG probe_rs::architecture::arm::communication_interface > Changing AP to 0, AP_BANK_SEL to 15
+       DEBUG probe_rs::architecture::arm::dp                      > Writing DP register SELECT, value=0x000000f0
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=DebugPort, addr=8, data=0x000000f0
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=252)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 08, F0, 00, 00, 00, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 25, 00, 77, 04, 00, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    IDR, value=0x4770025
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register BASE
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=248)
+       DEBUG probe_rs::probe::cmsisdap                            > 1 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 1 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 01, 0B, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 01, 01, 03, 30, 00, 41, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 1 of batch of 1 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    BASE, value=0x41003003
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register BASE2
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=240)
+       DEBUG probe_rs::probe::cmsisdap                            > 1 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 1 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 01, 03, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 01, 01, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 1 of batch of 1 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    BASE2, value=0x0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register CSW
+       DEBUG probe_rs::architecture::arm::communication_interface > Changing AP to 0, AP_BANK_SEL to 0
+       DEBUG probe_rs::architecture::arm::dp                      > Writing DP register SELECT, value=0x00000000
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=DebugPort, addr=8, data=0x00000000
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=0)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 08, 00, 00, 00, 00, 03, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 40, 00, 00, 43, 00, 03, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    CSW, value=0x43000040
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register CSW, value=CSW { DbgSwEnable: 1, HNONSEC: 1, PROT: 6, CACHE: 3, SPIDEN: 0, _RES0: 0, MTE: 0, Type: 0, Mode: 0, TrinProg: 0, DeviceEn: 0, AddrInc: Single, _RES1: 0, SIZE: U8 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=0, data=0xe3000010
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register CSW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=0)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 01, 10, 00, 00, E3, 03, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 50, 00, 00, 43, E3, 03, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    CSW, value=0x43000050
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register CSW, value=CSW { DbgSwEnable: 0, HNONSEC: 1, PROT: 0, CACHE: 3, SPIDEN: 0, _RES0: 0, MTE: 0, Type: 0, Mode: 0, TrinProg: 0, DeviceEn: 1, AddrInc: Off, _RES1: 0, SIZE: U8 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=0, data=0x43000040
+       DEBUG probe_rs::architecture::arm::communication_interface > HNONSEC supported: true
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register CFG
+       DEBUG probe_rs::architecture::arm::communication_interface > Changing AP to 0, AP_BANK_SEL to 15
+       DEBUG probe_rs::architecture::arm::dp                      > Writing DP register SELECT, value=0x000000f0
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=DebugPort, addr=8, data=0x000000f0
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=244)
+       DEBUG probe_rs::probe::cmsisdap                            > 3 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 3 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 03, 01, 40, 00, 00, 43, 08, F0, 00, 00, 00, 07, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 03, 01, 00, 00, 00, 00, 43, 08, F0, 00, 00, 00, 07, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 3 of batch of 3 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    CFG, value=0x0
+       DEBUG probe_rs::architecture::arm::communication_interface > AP GenericAp { address: ApAddress { dp: Default, ap: 0 } }: MemoryAp(MemoryApInformation { address: ApAddress { dp: Default, ap: 0 }, only_32bit_data_size: false, debug_base_address: 1090531328, supports_hnonsec: true, has_large_address_extension: false, has_large_data_extension: false })
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register CSW, value=CSW { DbgSwEnable: 0, HNONSEC: 0, PROT: 2, CACHE: 3, SPIDEN: 0, _RES0: 0, MTE: 0, Type: 0, Mode: 0, TrinProg: 0, DeviceEn: 0, AddrInc: Single, _RES1: 0, SIZE: U8 }
+       DEBUG probe_rs::architecture::arm::communication_interface > Changing AP to 0, AP_BANK_SEL to 0
+       DEBUG probe_rs::architecture::arm::dp                      > Writing DP register SELECT, value=0x00000000
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=DebugPort, addr=8, data=0x00000000
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=0, data=0x23000010
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: 41002101 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0x41002101
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 4 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 4 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 04, 08, 00, 00, 00, 00, 01, 10, 00, 00, 23, 05, 01, 21, 00, 41, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 04, 01, 00, 22, 00, 18, 00, 01, 10, 00, 00, 23, 05, 01, 21, 00, 41, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 4 of batch of 4 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x18002200
+        WARN probe_rs::architecture::arm::sequences::atsam        > XXXa1
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: 41002101 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0x41002101
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register DRW, value=DRW { data: 200 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=12, data=0x00000200
+        WARN probe_rs::architecture::arm::sequences::atsam        > XXXa2
+        WARN probe_rs::architecture::arm::sequences::atsam        > XXXa3
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: 41002102 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0x41002102
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 4 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 4 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 04, 05, 01, 21, 00, 41, 0D, 00, 02, 00, 00, 05, 02, 21, 00, 41, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 04, 01, 00, 20, 04, 18, 41, 0D, 00, 02, 00, 00, 05, 02, 21, 00, 41, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 4 of batch of 4 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x18042000
+        WARN probe_rs::architecture::arm::sequences::atsam        > XXXa4
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register CSW, value=CSW { DbgSwEnable: 0, HNONSEC: 0, PROT: 2, CACHE: 3, SPIDEN: 0, _RES0: 0, MTE: 0, Type: 0, Mode: 0, TrinProg: 0, DeviceEn: 0, AddrInc: Single, _RES1: 0, SIZE: U32 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=0, data=0x23000012
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: 41002120 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0x41002120
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register DRW, value=DRW { data: 444247aa }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=12, data=0x444247aa
+        WARN probe_rs::architecture::arm::sequences::atsam        > XXXaa
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register CSW, value=CSW { DbgSwEnable: 0, HNONSEC: 0, PROT: 2, CACHE: 3, SPIDEN: 0, _RES0: 0, MTE: 0, Type: 0, Mode: 0, TrinProg: 0, DeviceEn: 0, AddrInc: Single, _RES1: 0, SIZE: U8 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=0, data=0x23000010
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: 41002102 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0x41002102
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 6 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 6 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 06, 01, 12, 00, 00, 23, 05, 20, 21, 00, 41, 0D, AA, 47, 42, 44, 01, 10, 00, 00, 23, 05, 02, 21, 00, 41, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 06, 01, 00, 20, 04, 18, 23, 05, 20, 21, 00, 41, 0D, AA, 47, 42, 44, 01, 10, 00, 00, 23, 05, 02, 21, 00, 41, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 6 of batch of 6 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x18042000
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: 41002102 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0x41002102
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, 02, 21, 00, 41, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 00, 20, 8E, 18, 41, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x188e2000
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register CSW, value=CSW { DbgSwEnable: 0, HNONSEC: 0, PROT: 2, CACHE: 3, SPIDEN: 0, _RES0: 0, MTE: 0, Type: 0, Mode: 0, TrinProg: 0, DeviceEn: 0, AddrInc: Single, _RES1: 0, SIZE: U32 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=0, data=0x23000012
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: 41002124 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0x41002124
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 3 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 3 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 03, 01, 12, 00, 00, 23, 05, 24, 21, 00, 41, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 03, 01, 39, 00, 00, EC, 23, 05, 24, 21, 00, 41, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 3 of batch of 3 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0xec000039
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register CSW, value=CSW { DbgSwEnable: 0, HNONSEC: 0, PROT: 2, CACHE: 3, SPIDEN: 0, _RES0: 0, MTE: 0, Type: 0, Mode: 0, TrinProg: 0, DeviceEn: 0, AddrInc: Single, _RES1: 0, SIZE: U8 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=0, data=0x23000010
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: 41002102 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0x41002102
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 3 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 3 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 03, 01, 10, 00, 00, 23, 05, 02, 21, 00, 41, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 03, 01, 00, 20, 0E, 18, 23, 05, 02, 21, 00, 41, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 3 of batch of 3 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x180e2000
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: 41002102 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0x41002102
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, 02, 21, 00, 41, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 00, 20, 0E, 18, 41, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x180e2000
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: 41002102 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0x41002102
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, 02, 21, 00, 41, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 00, 20, 0E, 18, 41, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x180e2000
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: 41002102 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0x41002102
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, 02, 21, 00, 41, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 00, 20, 0E, 18, 41, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x180e2000
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: 41002102 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0x41002102
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, 02, 21, 00, 41, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 00, 20, 0E, 18, 41, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x180e2000
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: 41002102 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0x41002102
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, 02, 21, 00, 41, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 00, 20, 0E, 18, 41, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x180e2000
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: 41002102 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0x41002102
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, 02, 21, 00, 41, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 00, 20, 0E, 18, 41, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x180e2000
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: 41002102 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0x41002102
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, 02, 21, 00, 41, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 00, 20, 0E, 18, 41, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x180e2000
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: 41002102 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0x41002102
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, 02, 21, 00, 41, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 00, 20, 0E, 18, 41, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x180e2000
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: 41002102 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0x41002102
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, 02, 21, 00, 41, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 00, 20, 0E, 18, 41, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x180e2000
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: 41002102 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0x41002102
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, 02, 21, 00, 41, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 00, 20, 0E, 18, 41, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x180e2000
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: 41002102 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0x41002102
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, 02, 21, 00, 41, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 00, 20, 0E, 18, 41, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x180e2000
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: 41002102 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0x41002102
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, 02, 21, 00, 41, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 00, 20, 0E, 18, 41, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x180e2000
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: 41002102 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0x41002102
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, 02, 21, 00, 41, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 00, 20, 0E, 18, 41, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x180e2000
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: 41002102 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0x41002102
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, 02, 21, 00, 41, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 00, 20, 0E, 18, 41, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x180e2000
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: 41002102 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0x41002102
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, 02, 21, 00, 41, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 00, 20, 0E, 18, 41, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x180e2000
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: 41002102 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0x41002102
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, 02, 21, 00, 41, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 00, 20, 0E, 18, 41, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x180e2000
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: 41002102 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0x41002102
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, 02, 21, 00, 41, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 00, 20, 0E, 18, 41, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x180e2000
+        WARN probe_rs::session                                    > XXXE
+        WARN probe_rs::architecture::arm::sequences               > debug_core_start
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register CSW, value=CSW { DbgSwEnable: 0, HNONSEC: 0, PROT: 2, CACHE: 3, SPIDEN: 0, _RES0: 0, MTE: 0, Type: 0, Mode: 0, TrinProg: 0, DeviceEn: 0, AddrInc: Single, _RES1: 0, SIZE: U32 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=0, data=0x23000012
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 3 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 3 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 03, 01, 12, 00, 00, 23, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 03, 01, 00, 00, 10, 03, 23, 05, F0, ED, 00, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 3 of batch of 3 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x3100000
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register DRW, value=DRW { data: a05f0001 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=12, data=0xa05f0001
+        WARN probe_rs::session                                    > XXXF
+        WARN probe_rs::architecture::arm::sequences               > reset_catch_set
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register CSW, value=CSW { DbgSwEnable: 0, HNONSEC: 0, PROT: 2, CACHE: 3, SPIDEN: 0, _RES0: 0, MTE: 0, Type: 0, Mode: 0, TrinProg: 0, DeviceEn: 0, AddrInc: Single, _RES1: 0, SIZE: U32 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=0, data=0x23000012
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edfc }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edfc
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 5 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 5 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 05, 05, F0, ED, 00, E0, 0D, 01, 00, 5F, A0, 01, 12, 00, 00, 23, 05, FC, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 05, 01, 00, 00, 00, 00, E0, 0D, 01, 00, 5F, A0, 01, 12, 00, 00, 23, 05, FC, ED, 00, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 5 of batch of 5 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x0
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edfc }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edfc
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register DRW, value=DRW { data: 1 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=12, data=0x00000001
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 4 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 4 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 04, 05, FC, ED, 00, E0, 0D, 01, 00, 00, 00, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 04, 01, 01, 00, 10, 01, E0, 0D, 01, 00, 00, 00, 05, F0, ED, 00, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 4 of batch of 4 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+        WARN probe_rs::architecture::arm::sequences               > reset_hardware_deassert
+        WARN probe_rs::probe::cmsisdap                            > XXX cmsisdap:swj_pins request out: 128, select: 128, wait: 0
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 10, 80, 80, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [10, 83, 80, 00]...
+        WARN probe_rs::probe::cmsisdap                            > XXX cmsisdap:swj_pins response: 131
+        WARN probe_rs::probe::cmsisdap                            > XXX cmsisdap:swj_pins request out: 128, select: 128, wait: 0
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 10, 80, 80, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [10, 83, 80, 00]...
+        WARN probe_rs::probe::cmsisdap                            > XXX cmsisdap:swj_pins response: 131
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register CSW, value=CSW { DbgSwEnable: 0, HNONSEC: 0, PROT: 2, CACHE: 3, SPIDEN: 0, _RES0: 0, MTE: 0, Type: 0, Mode: 0, TrinProg: 0, DeviceEn: 0, AddrInc: Single, _RES1: 0, SIZE: U32 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=0, data=0x23000012
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 3 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 3 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 03, 01, 12, 00, 00, 23, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 03, 01, 01, 00, 10, 01, 23, 05, F0, ED, 00, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 3 of batch of 3 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+       DEBUG probe_rs::architecture::arm::core::armv8m            > State when connecting: Dhcsr { .0: 1100001, s_restart_st: false, s_reset_st: false, s_retire_st: true, s_fpd: false, s_suide: false, s_nsuide: false, s_sde: true, s_lockup: false, s_sleep: false, s_halt: false, s_regrdy: false, c_pmov: false, c_snapstall: false, c_maskints: false, c_step: false, c_halt: false, c_debugen: true }
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000ed30 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000ed30
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register DRW, value=DRW { data: 1f }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=12, data=0x0000001f
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 4 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 4 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 04, 05, 30, ED, 00, E0, 0D, 1F, 00, 00, 00, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 04, 01, 01, 00, 10, 01, E0, 0D, 1F, 00, 00, 00, 05, F0, ED, 00, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 4 of batch of 4 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 01, 00, 10, 01, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 01, 00, 10, 01, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 01, 00, 10, 01, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 01, 00, 10, 01, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 01, 00, 10, 01, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 01, 00, 10, 01, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 01, 00, 10, 01, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 01, 00, 10, 01, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 01, 00, 10, 01, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 01, 00, 10, 01, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 01, 00, 10, 01, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 01, 00, 10, 01, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 01, 00, 10, 01, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 01, 00, 10, 01, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 01, 00, 10, 01, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 01, 00, 10, 01, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 01, 00, 10, 01, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 01, 00, 10, 01, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 01, 00, 10, 01, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 01, 00, 10, 01, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 01, 00, 10, 01, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 01, 00, 10, 01, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 01, 00, 10, 01, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 01, 00, 10, 01, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 01, 00, 10, 01, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edf0 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edf0
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, F0, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 01, 00, 10, 01, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1100001
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register CSW, value=CSW { DbgSwEnable: 0, HNONSEC: 0, PROT: 2, CACHE: 3, SPIDEN: 0, _RES0: 0, MTE: 0, Type: 0, Mode: 0, TrinProg: 0, DeviceEn: 0, AddrInc: Single, _RES1: 0, SIZE: U32 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=0, data=0x23000012
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e0002000 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe0002000
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 3 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 3 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 03, 01, 12, 00, 00, 23, 05, 00, 20, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 03, 01, 40, 00, 00, 10, 23, 05, 00, 20, 00, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 3 of batch of 3 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x10000040
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e0002008 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe0002008
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, 08, 20, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, FE, FF, FB, FF, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0xfffbfffe
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000200c }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000200c
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, 0C, 20, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 7E, FD, FF, FB, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0xfbfffd7e
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e0002010 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe0002010
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, 10, 20, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, FE, FE, FF, FF, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0xfffffefe
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e0002014 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe0002014
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, 14, 20, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, FE, BF, FF, FF, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0xffffbffe
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register CSW, value=CSW { DbgSwEnable: 0, HNONSEC: 0, PROT: 2, CACHE: 3, SPIDEN: 0, _RES0: 0, MTE: 0, Type: 0, Mode: 0, TrinProg: 0, DeviceEn: 0, AddrInc: Single, _RES1: 0, SIZE: U32 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=0, data=0x23000012
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edfc }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edfc
+       DEBUG probe_rs::architecture::arm::ap                      > Reading register DRW
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Read(port=AccessPort, addr=12)
+       DEBUG probe_rs::probe::cmsisdap                            > 3 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 3 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 03, 01, 12, 00, 00, 23, 05, FC, ED, 00, E0, 0F, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 03, 01, 01, 00, 00, 00, 23, 05, FC, ED, 00, E0, 0F, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 3 of batch of 3 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       DEBUG probe_rs::architecture::arm::ap                      > Read register    DRW, value=0x1
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register TAR, value=TAR { address: e000edfc }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=4, data=0xe000edfc
+       DEBUG probe_rs::architecture::arm::ap                      > Writing register DRW, value=DRW { data: 1 }
+       DEBUG probe_rs::probe::cmsisdap                            > Adding command to batch: Write(port=AccessPort, addr=12, data=0x00000001
+        WARN probe_rs::architecture::arm::sequences               > debug_core_stop
+       DEBUG probe_rs::probe::cmsisdap                            > Detaching from CMSIS-DAP probe
+       DEBUG probe_rs::probe::cmsisdap                            > 2 items in batch
+       DEBUG probe_rs::probe::cmsisdap                            > Attempting batch of 2 items
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 05, 00, 02, 05, FC, ED, 00, E0, 0D, 01, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [05, 02, 01, 05, FC, ED, 00, E0, 0D, 01, 00]...
+       DEBUG probe_rs::probe::cmsisdap                            > 2 of batch of 2 items suceeded
+       TRACE probe_rs::probe::cmsisdap                            > Transfer status: ACK
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 03, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [03, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Transmit buffer: [00, 01, 00]...
+       TRACE probe_rs::probe::cmsisdap::commands                  > Receive buffer: [01, 00]...
+        INFO cargo_flash                                          > Metadata {
+    chip: Some(
+        "\"ATSAML10E16A\"",
+    ),
+    probe: Some(
+        "\"CMSIS-DAP\"",
+    ),
+    speed: Some(
+        "1000",
+    ),
+    release: "0.12.1",
+    commit: "v0.12.1-34-g2aedd62-modified",
+}
+       Error Connecting to the chip was unsuccessful.
+
+  Caused by:
+          0: An error with the usage of the probe occurred
+          1: Operation timed out
+```
