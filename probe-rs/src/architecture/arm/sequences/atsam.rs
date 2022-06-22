@@ -104,6 +104,65 @@ impl Atsaml10 {
 
         Ok(())
     }
+
+    fn exit_reset_extension(&self, memory: &mut crate::Memory) -> Result<(), crate::Error> {
+        // Make sure the CRSTEXT bit is set to indicate we're in the
+        // reset extension phase.
+        let statusa = memory.read_word_8((Self::DSU_STATUSA_ADDR).into())?;
+        if (statusa & Self::CRSTEXT_BIT) == 0 {
+            // XXX Better warning message?
+            log::warn!("Reset extension failed, need `--connect-under-reset`?");
+            return Err(crate::Error::architecture_specific(
+                AtsamDebugSequenceError::CpuResetExtensionFailed,
+            ));
+        }
+
+        log::warn!("XXXa1");
+
+        // Clear the CRSTEXT bit.
+        memory.write_word_8((Self::DSU_STATUSA_ADDR).into(), Self::CRSTEXT_BIT)?;
+
+        log::warn!("XXXa2");
+
+        // Wait 5ms for CPU to execute Boot ROM failure analysis and security
+        // checks.
+        thread::sleep(Duration::from_millis(5));
+
+        log::warn!("XXXa3");
+
+        // Check to see if there were any errors.
+        let statusb = memory.read_word_8((Self::DSU_STATUSB_ADDR).into())?;
+        if (statusb & Self::BCCD1_BIT) != 0 {
+            log::warn!("Boot discovered errors, continuing: XXX");
+            // XXX Go read the error code and show to the user.
+        }
+
+        log::warn!("XXXa4");
+
+        Ok(())
+    }
+
+    fn exit_interactive_mode(&self, memory: &mut crate::Memory) -> Result<(), crate::Error> {
+        memory.write_word_32((Self::DSU_BCC0_ADDR).into(), Self::CMD_EXIT)?;
+
+        log::warn!("XXXaa");
+
+        // Poll for status update.
+        for _ in 0..20 {
+            let statusb = memory.read_word_8((Self::DSU_STATUSB_ADDR).into())?;
+            if (statusb & Self::BCCD1_BIT) != 0 {
+                let status = memory.read_word_32((Self::DSU_BCC1_ADDR).into())?;
+                if status != Self::SIG_BOOTOK {
+                    log::warn!("Failed to exit to park!: status {:x}", status);
+                    // XXX Error!
+                }
+            }
+            // No status update, wait for a while before trying again.
+            thread::sleep(Duration::from_millis(50));
+        }
+
+        Ok(())
+    }
 }
 
 impl ArmDebugSequence for Atsaml10 {
@@ -122,11 +181,26 @@ impl ArmDebugSequence for Atsaml10 {
         &self,
         interface: &mut Box<dyn ArmProbeInterface>,
         default_ap: MemoryAp,
+        _permissions: &crate::Permissions,
+    ) -> Result<(), crate::Error> {
+        let mut memory = interface.memory_interface(default_ap)?;
+        self.exit_reset_extension(&mut memory)?;
+        self.exit_interactive_mode(&mut memory)?;
+
+        Ok(())
+    }
+
+    /*
+    fn debug_device_unlock2(
+        &self,
+        interface: &mut Box<dyn ArmProbeInterface>,
+        default_ap: MemoryAp,
         permissions: &crate::Permissions,
     ) -> Result<(), crate::Error> {
         {
             let mut memory = interface.memory_interface(default_ap)?;
             log::warn!("XXX");
+
             let unlocked = self.is_core_unlocked(&mut memory)?;
 
             // See if we're allowed to erase the chip.
@@ -333,4 +407,5 @@ impl ArmDebugSequence for Atsaml10 {
 
         Ok(())
     }
+    */
 }

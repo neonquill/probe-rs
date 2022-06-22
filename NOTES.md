@@ -669,3 +669,49 @@ dwatson@cripps-pink ~/w/f/s/fridge_sensor_rs (master)> cargo flash --release --c
 
 Latest attempt. I seem to be able to still control the pins, but I
 need to re-run the init code.
+
+## 22 June 2022
+
+```
+dwatson@cripps-pink ~/w/f/s/fridge_sensor_rs (master)> cargo flash --release --chip ATSAML10E16A --elf target/thumbv8m.base-none-eabi/release/blink --connect-under-reset
+    Flashing target/thumbv8m.base-none-eabi/release/blink
+        WARN probe_rs::config::target > Using custom sequence for ATSAM10
+        WARN probe_rs::session        > XXXA
+        WARN probe_rs::architecture::arm::sequences::atsam > atsaml10 reset_hardware_assert
+        WARN probe_rs::architecture::arm::sequences::atsam > atsaml10 do_cold_plug()
+        WARN probe_rs::probe::cmsisdap                     > XXX cmsisdap:swj_pins request out: 128, select: 128, wait: 0
+        WARN probe_rs::probe::cmsisdap                     > XXX cmsisdap:swj_pins response: 131
+        WARN probe_rs::probe::cmsisdap                     > XXX cmsisdap:swj_pins request out: 0, select: 128, wait: 0
+        WARN probe_rs::probe::cmsisdap                     > XXX cmsisdap:swj_pins response: 3
+        WARN probe_rs::probe::cmsisdap                     > XXX cmsisdap:swj_pins request out: 0, select: 129, wait: 0
+        WARN probe_rs::probe::cmsisdap                     > XXX cmsisdap:swj_pins response: 2
+        WARN probe_rs::probe::cmsisdap                     > XXX cmsisdap:swj_pins request out: 128, select: 128, wait: 0
+        WARN probe_rs::probe::cmsisdap                     > XXX cmsisdap:swj_pins response: 130
+        WARN probe_rs::session                             > XXXB
+        WARN probe_rs::session                             > XXXC
+        WARN probe_rs::architecture::arm::sequences        > debug_port_setup
+        WARN probe_rs::session                             > XXXD
+        WARN probe_rs::architecture::arm::sequences        > debug_port_start
+        WARN probe_rs::architecture::arm::sequences::atsam > XXXa1
+        WARN probe_rs::architecture::arm::sequences::atsam > XXXa2
+        WARN probe_rs::architecture::arm::sequences::atsam > XXXa3
+        WARN probe_rs::architecture::arm::sequences::atsam > XXXa4
+        WARN probe_rs::architecture::arm::sequences::atsam > XXXaa
+        WARN probe_rs::session                             > XXXE
+        WARN probe_rs::architecture::arm::sequences        > debug_core_start
+        WARN probe_rs::session                             > XXXF
+        WARN probe_rs::architecture::arm::sequences        > reset_catch_set
+        WARN probe_rs::architecture::arm::sequences        > reset_hardware_deassert
+        WARN probe_rs::probe::cmsisdap                     > XXX cmsisdap:swj_pins request out: 128, select: 128, wait: 0
+        WARN probe_rs::probe::cmsisdap                     > XXX cmsisdap:swj_pins response: 131
+        WARN probe_rs::probe::cmsisdap                     > XXX cmsisdap:swj_pins request out: 128, select: 128, wait: 0
+        WARN probe_rs::probe::cmsisdap                     > XXX cmsisdap:swj_pins response: 131
+        WARN probe_rs::architecture::arm::sequences        > debug_core_stop
+       Error Connecting to the chip was unsuccessful.
+
+  Caused by:
+          0: An error with the usage of the probe occurred
+          1: Operation timed out
+```
+
+Not sure what went wrong...
