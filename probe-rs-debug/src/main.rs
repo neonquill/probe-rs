@@ -1,9 +1,43 @@
+use anyhow::{Context, Result};
+use probe_rs::architecture::arm::ArmProbeInterface;
 use probe_rs::architecture::arm::Pins;
 use probe_rs::{Permissions, Probe};
 use std::thread;
 use std::time::Duration;
 
-fn main() {
+/// Performs a cold plugging sequence.
+fn do_cold_plug(interface: &mut Box<dyn ArmProbeInterface>) -> Result<()> {
+    let mut pin_out = Pins(0);
+    let mut pin_mask = Pins(0);
+
+    log::warn!("atsaml10 do_cold_plug()");
+
+    // 1 ms with reset high.
+    pin_out.set_nreset(true);
+    pin_mask.set_nreset(true);
+    interface.swj_pins(pin_out.0 as u32, pin_mask.0 as u32, 0)?;
+    thread::sleep(Duration::from_millis(1));
+
+    // 1 ms with reset low.
+    pin_out.set_nreset(false);
+    interface.swj_pins(pin_out.0 as u32, pin_mask.0 as u32, 0)?;
+    thread::sleep(Duration::from_millis(1));
+
+    // 1 ms with reset and clock low.
+    pin_mask.set_swclk_tck(true);
+    interface.swj_pins(pin_out.0 as u32, pin_mask.0 as u32, 0)?;
+    thread::sleep(Duration::from_millis(1));
+
+    // 1 ms with reset high.
+    pin_mask.set_swclk_tck(false);
+    pin_out.set_nreset(true);
+    interface.swj_pins(pin_out.0 as u32, pin_mask.0 as u32, 0)?;
+    thread::sleep(Duration::from_millis(1));
+
+    Ok(())
+}
+
+fn main() -> Result<()> {
     simplelog::TermLogger::init(
         simplelog::LevelFilter::Trace,
         simplelog::Config::default(),
@@ -24,38 +58,7 @@ fn main() {
         .unwrap();
     let interface = session.get_arm_interface().unwrap();
 
-    let mut pin_out = Pins(0);
-    let mut pin_mask = Pins(0);
+    do_cold_plug(interface).context("Failed to do cold plug")?;
 
-    pin_mask.set_nreset(true);
-    pin_mask.set_swclk_tck(true);
-    pin_mask.set_swdio_tms(true);
-
-    pin_out.set_nreset(true);
-    pin_out.set_swclk_tck(true);
-    pin_out.set_swdio_tms(true);
-    let val = interface
-        .swj_pins(pin_out.0 as u32, pin_mask.0 as u32, 0)
-        .unwrap();
-    println!("Value: {}", val);
-    thread::sleep(Duration::from_millis(100));
-
-    pin_out.set_nreset(false);
-    pin_out.set_swclk_tck(false);
-    pin_out.set_swdio_tms(false);
-    let val = interface
-        .swj_pins(pin_out.0 as u32, pin_mask.0 as u32, 0)
-        .unwrap();
-    println!("Value: {}", val);
-    thread::sleep(Duration::from_millis(100));
-
-    pin_out.set_nreset(true);
-    pin_out.set_swclk_tck(true);
-    pin_out.set_swdio_tms(true);
-    let val = interface
-        .swj_pins(pin_out.0 as u32, pin_mask.0 as u32, 0)
-        .unwrap();
-    println!("Value: {}", val);
-
-    println!("Hello, world!");
+    Ok(())
 }
