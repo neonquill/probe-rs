@@ -150,21 +150,26 @@ fn main() -> Result<()> {
 
     // This path works, presumably because connecting
     // causes the pins to switch to outputs.
+    log::warn!("MANUAL probe.attach");
     let mut session = probe.attach("ATSAML10E16A", Permissions::default())?;
+    log::warn!("MANUAL get_arm_interface");
     let interface = session.get_arm_interface()?;
 
     let atsaml10 = Atsaml10(());
 
     // First, do a cold plug sequence.
+    log::warn!("MANUAL cold plug");
     atsaml10
         .do_cold_plug(interface)
         .context("Failed to do cold plug")?;
 
+    log::warn!("MANUAL memory ap");
     let default_memory_ap = MemoryAp::new(ApAddress {
         dp: DpAddress::Default,
         ap: 0,
     });
 
+    log::warn!("MANUAL memory_interface");
     let mut memory = interface.memory_interface(default_memory_ap)?;
 
     // Now follow the CMD_EXIT to Park mode diagram (14-9 page 81).
