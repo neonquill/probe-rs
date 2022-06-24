@@ -141,20 +141,17 @@ fn main() -> Result<()> {
         simplelog::Config::default(),
         simplelog::TerminalMode::Mixed,
         simplelog::ColorChoice::Auto,
-    )
-    .unwrap();
+    )?;
 
     let probes = Probe::list_all();
-    let probe = probes[0].open().unwrap();
+    let probe = probes[0].open()?;
     // This path doesn't work.
-    // let interface = probe.try_as_dap_probe().unwrap();
+    // let interface = probe.try_as_dap_probe()?;
 
     // This path works, presumably because connecting
     // causes the pins to switch to outputs.
-    let mut session = probe
-        .attach("ATSAML10E16A", Permissions::default())
-        .unwrap();
-    let interface = session.get_arm_interface().unwrap();
+    let mut session = probe.attach("ATSAML10E16A", Permissions::default())?;
+    let interface = session.get_arm_interface()?;
 
     let atsaml10 = Atsaml10(());
 
