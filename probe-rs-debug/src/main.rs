@@ -123,6 +123,16 @@ impl Atsaml10 {
 
         Ok(())
     }
+
+    fn get_dal(&self, interface: &mut crate::Memory) -> Result<u8> {
+        let statusb = interface.read_word_8((Self::DSU_STATUSB_ADDR).into())?;
+        log::warn!("Read STATUSB {:x}", statusb);
+
+        let dal = statusb & 0b11;
+        log::warn!("DAL {}", dal);
+
+        Ok(dal)
+    }
 }
 
 fn main() -> Result<()> {
@@ -148,6 +158,7 @@ fn main() -> Result<()> {
 
     let atsaml10 = Atsaml10(());
 
+    // First, do a cold plug sequence.
     atsaml10
         .do_cold_plug(interface)
         .context("Failed to do cold plug")?;
@@ -158,8 +169,20 @@ fn main() -> Result<()> {
     });
 
     let mut memory = interface.memory_interface(default_memory_ap)?;
+
+    // Now follow the CMD_EXIT to Park mode diagram (14-9 page 81).
     atsaml10.exit_reset_extension(&mut memory)?;
+    // By not clearing BREXT here we go into park mode.
     atsaml10.exit_interactive_mode(&mut memory)?;
+
+    // Make sure the debug access level is 2 (unlocked).
+    let dal = atsaml10.get_dal(&mut memory)?;
+    if dal != 2 {
+        return Err(anyhow!(
+            "Device is locked. DAL == {} != 2. Try erasing the chip to clear.",
+            dal
+        ));
+    }
 
     Ok(())
 }
