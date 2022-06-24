@@ -144,23 +144,32 @@ fn main() -> Result<()> {
     )?;
 
     let probes = Probe::list_all();
-    let probe = probes[0].open()?;
+    let mut probe = probes[0].open()?;
     // This path doesn't work.
     // let interface = probe.try_as_dap_probe()?;
 
     // This path works, presumably because connecting
     // causes the pins to switch to outputs.
-    log::warn!("MANUAL probe.attach");
-    let mut session = probe.attach("ATSAML10E16A", Permissions::default())?;
-    log::warn!("MANUAL get_arm_interface");
-    let interface = session.get_arm_interface()?;
+    // But now I don't want to attach and do everything automatically.
+    // log::warn!("MANUAL probe.attach");
+    //let mut session = probe.attach("ATSAML10E16A", Permissions::default())?;
+
+    // Attach without running any init routines (?).
+    log::warn!("MANUAL attach_to_unspecified");
+    probe.attach_to_unspecified()?;
+
+    log::warn!("MANUAL try_into_arm_interface");
+    let interface = probe.try_into_arm_interface().map_err(|(_, e)| e)?;
+
+    log::warn!("MANUAL initialize");
+    let mut interface = interface.initialize_unspecified()?;
 
     let atsaml10 = Atsaml10(());
 
     // First, do a cold plug sequence.
     log::warn!("MANUAL cold plug");
     atsaml10
-        .do_cold_plug(interface)
+        .do_cold_plug(&mut interface)
         .context("Failed to do cold plug")?;
 
     log::warn!("MANUAL memory ap");
