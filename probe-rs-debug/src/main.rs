@@ -172,12 +172,17 @@ fn main() -> Result<()> {
         .do_cold_plug(&mut interface)
         .context("Failed to do cold plug")?;
 
-    log::warn!("MANUAL memory ap");
-    let default_memory_ap = MemoryAp::new(ApAddress {
+    log::warn!("MANUAL port");
+    let port = ApAddress {
         dp: DpAddress::Default,
         ap: 0,
-    });
+    };
 
+    log::warn!("MANUAL read_raw_ap_register");
+    let val = interface.read_raw_ap_register(port, 0)?;
+    log::warn!("val {}", val);
+
+    /*
     log::warn!("MANUAL memory_interface");
     let mut memory = interface.memory_interface(default_memory_ap)?;
 
@@ -194,6 +199,7 @@ fn main() -> Result<()> {
             dal
         ));
     }
+     */
 
     Ok(())
 }
