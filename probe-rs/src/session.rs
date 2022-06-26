@@ -176,6 +176,9 @@ impl Session {
                 let interface = probe.try_into_arm_interface().map_err(|(_, err)| err)?;
 
                 log::warn!("XXXC");
+                // Calls sequence.debug_port_setup.
+                // Which by default sends the SWD reset sequence
+                // followed by reading DPIDR.
                 let mut interface = interface.initialize(sequence_handle.clone())?;
 
                 log::warn!("XXXD");
@@ -225,11 +228,13 @@ impl Session {
                     {
                         let mut memory_interface = interface.memory_interface(default_memory_ap)?;
                         // we need to halt the chip here
+                        log::warn!("XXXF1");
                         sequence_handle.reset_catch_set(
                             &mut memory_interface,
                             config.core_type,
                             arm_core_access_options.debug_base,
                         )?;
+                        log::warn!("XXXF2");
                         sequence_handle.reset_hardware_deassert(&mut memory_interface)?;
                     }
 
@@ -241,11 +246,13 @@ impl Session {
 
                     {
                         // Wait for the core to be halted
+                        log::warn!("XXXF3");
                         let mut core = session.core(0)?;
                         core.wait_for_core_halted(Duration::from_millis(100))?;
                     }
 
                     {
+                        log::warn!("XXXF4");
                         let interface = session.get_arm_interface()?;
                         let mut memory_interface = interface.memory_interface(default_memory_ap)?;
                         // we need to halt the chip here
@@ -257,6 +264,7 @@ impl Session {
                     }
 
                     {
+                        log::warn!("XXXF5");
                         let mut core = session.core(0)?;
                         core.wait_for_core_halted(Duration::from_millis(100))?;
                     }
@@ -310,6 +318,7 @@ impl Session {
         log::warn!("XXXG");
         session.clear_all_hw_breakpoints()?;
 
+        log::warn!("XXXH success!");
         Ok(session)
     }
 

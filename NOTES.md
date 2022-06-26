@@ -1712,3 +1712,16 @@ Same thing, but with trace log level (beginning is missing):
           0: An error with the usage of the probe occurred
           1: Operation timed out
 ```
+
+## 26 June 2022
+
+Ok, I'm pretty sure the flash code is dying in the attach under reset
+code path in the XXXF section. Which is weird because we already did
+ann attach under reset up above in XXXA...
+
+Ok, added some new debug prints:
+
+XXXF2 - `reset_hardware_deassert` is messing with the pins and probably
+messing things up.
+
+XXXF3 appears to be the thing that's timing out.
