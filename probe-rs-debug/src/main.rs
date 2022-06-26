@@ -273,6 +273,8 @@ fn main() -> Result<()> {
     let endian = obj_file.endian();
     println!("Endian {:?}", endian);
 
+    // let extracted_data = Vec::new();
+
     for segment in obj_file.raw_segments() {
         let p_type = segment.p_type(endian);
         let p_paddr = segment.p_paddr(endian);
@@ -294,6 +296,7 @@ fn main() -> Result<()> {
 
         let sector: core::ops::Range<u64> = segment_offset..segment_offset + segment_filesize;
 
+        let mut found = false;
         for section in obj_file.sections() {
             let (section_offset, section_filesize) = match section.file_range() {
                 Some(range) => range,
@@ -301,8 +304,17 @@ fn main() -> Result<()> {
             };
             if sector.contains_range(&(section_offset..section_offset + section_filesize)) {
                 println!("Matching section: {:?}", section.name()?);
+                found = true;
             }
         }
+
+        if !found {
+            println!("No matching sections found!");
+            continue;
+        }
+
+        let section_data = &bin_data[segment_offset as usize..][..segment_filesize as usize];
+        hexdump::hexdump(section_data);
     }
 
     // Actually do the flash.
