@@ -77,6 +77,9 @@ impl<'probe> Armv8m<'probe> {
 
 impl<'probe> CoreInterface for Armv8m<'probe> {
     fn wait_for_core_halted(&mut self, timeout: Duration) -> Result<(), Error> {
+        // XXX Hacked
+        return Ok(());
+
         // Wait until halted state is active again.
         let start = Instant::now();
 

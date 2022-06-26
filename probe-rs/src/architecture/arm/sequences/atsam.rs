@@ -183,41 +183,9 @@ impl ArmDebugSequence for Atsaml10 {
     // XXX I don't really understand the deassert name here...
     fn reset_hardware_deassert(&self, memory: &mut Memory) -> Result<(), crate::Error> {
         log::warn!("reset_hardware_deassert");
-        // XXX Copy of do_cold_plug.
-        // XXX Can't figure out the types :(
-        {
-            let interface = memory.get_arm_probe();
 
-            let mut pin_out = Pins(0);
-            let mut pin_mask = Pins(0);
-
-            log::warn!("atsaml10 do_cold_plug()");
-
-            // 1 ms with reset high.
-            pin_out.set_nreset(true);
-            pin_mask.set_nreset(true);
-            interface.swj_pins(pin_out.0 as u32, pin_mask.0 as u32, 0)?;
-            thread::sleep(Duration::from_millis(1));
-
-            // 1 ms with reset low.
-            pin_out.set_nreset(false);
-            interface.swj_pins(pin_out.0 as u32, pin_mask.0 as u32, 0)?;
-            thread::sleep(Duration::from_millis(1));
-
-            // 1 ms with reset and clock low.
-            pin_mask.set_swclk_tck(true);
-            interface.swj_pins(pin_out.0 as u32, pin_mask.0 as u32, 0)?;
-            thread::sleep(Duration::from_millis(1));
-
-            // 1 ms with reset high.
-            pin_mask.set_swclk_tck(false);
-            pin_out.set_nreset(true);
-            interface.swj_pins(pin_out.0 as u32, pin_mask.0 as u32, 0)?;
-            thread::sleep(Duration::from_millis(1));
-        }
-
-        self.exit_reset_extension(memory)?;
-        self.exit_interactive_mode(memory)?;
+        // Don't do anything here, we don't want to get out the
+        // current chip state.
 
         Ok(())
     }
