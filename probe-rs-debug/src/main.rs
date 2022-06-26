@@ -1,6 +1,7 @@
 use anyhow::{anyhow, Context, Result};
 use probe_rs::architecture::arm::ap::MemoryAp;
 use probe_rs::architecture::arm::{ApAddress, ArmProbeInterface, DpAddress, Pins};
+use probe_rs::flashing::DownloadOptions;
 use probe_rs::flashing::FlashLoader;
 use probe_rs::Memory;
 use probe_rs::{Permissions, Probe};
@@ -253,6 +254,11 @@ fn main() -> Result<()> {
     let elf_path = Path::new("/Users/dwatson/work/fridge_monitor/src/fridge_sensor_rs/target/thumbv8m.base-none-eabi/release/blink --connect-under-reset");
     let mut file = File::open(&elf_path)?;
     loader.load_elf_data(&mut file)?;
+
+    // Actually do the flash.
+    let _opt = DownloadOptions::default();
+    // XXX I can't figure out how to create a session...
+    // loader.commit(interface, opt)?;
 
     log::warn!("MANUAL exit");
     Ok(())
