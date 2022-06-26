@@ -275,15 +275,20 @@ fn main() -> Result<()> {
 
     for segment in obj_file.raw_segments() {
         let p_type = segment.p_type(endian);
+        let p_paddr = segment.p_paddr(endian);
+        let p_vaddr = segment.p_vaddr(endian);
+
         let segment_data = segment
             .data(endian, &*bin_data)
             .map_err(|_| anyhow!("Failed to access data in segment"))?;
 
-        println!("Type {}", p_type);
         if segment_data.is_empty() || p_type != PT_LOAD {
             continue;
         }
-        println!("Segment {:?}", segment.p_type);
+        println!(
+            "Loadable Segment physical {:x}, virtual {:x}",
+            p_paddr, p_vaddr
+        );
 
         let (segment_offset, segment_filesize) = segment.file_range(endian);
 
