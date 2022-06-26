@@ -161,10 +161,10 @@ fn main() -> Result<()> {
     log::warn!("MANUAL try_into_arm_interface");
     let interface = probe.try_into_arm_interface().map_err(|(_, e)| e)?;
 
-    /*
     log::warn!("MANUAL initialize");
     let mut interface = interface.initialize_unspecified()?;
 
+    /*
     let atsaml10 = Atsaml10(());
 
     // First, do a cold plug sequence.
