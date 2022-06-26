@@ -209,23 +209,28 @@ fn main() -> Result<()> {
         ap: 0,
     };
 
+    let default_memory_ap = MemoryAp::new(port);
+
+    /*
     log::warn!("MANUAL read_raw_ap_register");
     let val = interface.read_raw_ap_register(port, 0)?;
     log::warn!("val {}", val);
-
-    /*
+    */
 
     let atsaml10 = Atsaml10(());
 
-
     log::warn!("MANUAL memory_interface");
+    // This runs a bunch of commands, but none of them seem to error.
     let mut memory = interface.memory_interface(default_memory_ap)?;
 
     // Now follow the CMD_EXIT to Park mode diagram (14-9 page 81).
+    log::warn!("MANUAL exit_reset_extension");
     atsaml10.exit_reset_extension(&mut memory)?;
+    log::warn!("MANUAL exit_interactive_mode");
     // By not clearing BREXT here we go into park mode.
     atsaml10.exit_interactive_mode(&mut memory)?;
 
+    /*
     // Make sure the debug access level is 2 (unlocked).
     let dal = atsaml10.get_dal(&mut memory)?;
     if dal != 2 {
@@ -234,7 +239,7 @@ fn main() -> Result<()> {
             dal
         ));
     }
-     */
+    */
 
     Ok(())
 }
