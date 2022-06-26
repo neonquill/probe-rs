@@ -230,8 +230,8 @@ fn main() -> Result<()> {
     // By not clearing BREXT here we go into park mode.
     atsaml10.exit_interactive_mode(&mut memory)?;
 
-    /*
     // Make sure the debug access level is 2 (unlocked).
+    log::warn!("MANUAL read DAL");
     let dal = atsaml10.get_dal(&mut memory)?;
     if dal != 2 {
         return Err(anyhow!(
@@ -239,7 +239,7 @@ fn main() -> Result<()> {
             dal
         ));
     }
-    */
 
+    log::warn!("MANUAL exit");
     Ok(())
 }
