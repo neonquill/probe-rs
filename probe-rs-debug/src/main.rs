@@ -203,10 +203,6 @@ fn main() -> Result<()> {
     log::warn!("MANUAL initialize");
     let mut interface = interface.initialize_unspecified()?;
 
-    /*
-
-    let atsaml10 = Atsaml10(());
-
     log::warn!("MANUAL port");
     let port = ApAddress {
         dp: DpAddress::Default,
@@ -216,9 +212,12 @@ fn main() -> Result<()> {
     log::warn!("MANUAL read_raw_ap_register");
     let val = interface.read_raw_ap_register(port, 0)?;
     log::warn!("val {}", val);
-     */
 
     /*
+
+    let atsaml10 = Atsaml10(());
+
+
     log::warn!("MANUAL memory_interface");
     let mut memory = interface.memory_interface(default_memory_ap)?;
 
