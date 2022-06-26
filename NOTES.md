@@ -1731,3 +1731,24 @@ XXXF3 appears to be the thing that's timing out.
 
 Ok, current code doesn't work because I'm reseting the chip without
 re-connecting (code in debug_port_setup).
+
+
+---
+
+```
+    Finished dev [unoptimized + debuginfo] target(s) in 1.07s
+     Running `target/debug/probe-rs-debug`
+21:06:03 [DEBUG] (1) probe_rs::config::registry: Searching registry for chip with name ATSAML10E16A
+21:06:03 [DEBUG] (1) probe_rs::config::registry: Exact match for chip name: ATSAML10E16A
+21:06:03 [WARN] Using custom sequence for ATSAM10
+21:06:03 [INFO] Found loadable segment, physical address: 0x00000000, virtual address: 0x00000000, flags: 0x4
+21:06:03 [INFO] Matching section: ".vector_table"
+21:06:03 [INFO] Found loadable segment, physical address: 0x000000f4, virtual address: 0x000000f4, flags: 0x5
+21:06:03 [INFO] Matching section: ".text"
+21:06:03 [INFO] Found 2 loadable sections:
+21:06:03 [INFO]     .vector_table at 00000000 (244 bytes)
+21:06:03 [INFO]     .text at 000000F4 (324 bytes)
+21:06:03 [TRACE] (1) probe_rs::flashing::loader: [probe-rs/src/flashing/loader.rs:67] Adding data at address 0x00000000 with size 244 bytes
+21:06:03 [TRACE] (1) probe_rs::flashing::loader: [probe-rs/src/flashing/loader.rs:67] Adding data at address 0x000000f4 with size 324 bytes
+21:06:03 [WARN] MANUAL exit
+```

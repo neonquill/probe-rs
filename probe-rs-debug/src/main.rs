@@ -147,102 +147,104 @@ fn main() -> Result<()> {
         simplelog::ColorChoice::Auto,
     )?;
 
-    let probes = Probe::list_all();
-    let mut probe = probes[0].open()?;
-    // This path doesn't work.
-    // let interface = probe.try_as_dap_probe()?;
-
-    // This path works, presumably because connecting
-    // causes the pins to switch to outputs.
-    // But now I don't want to attach and do everything automatically.
-    // log::warn!("MANUAL probe.attach");
-    //let mut session = probe.attach("ATSAML10E16A", Permissions::default())?;
-
-    // Attach without running any init routines (?).
-    log::warn!("MANUAL attach_to_unspecified");
-    probe.attach_to_unspecified()?;
-
-    log::warn!("MANUAL try_into_arm_interface");
-    let mut interface = probe.try_into_arm_interface().map_err(|(_, e)| e)?;
-
     /*
-        // First, do a cold plug sequence.
-        // XXX Something before this is sending commands...
-        log::warn!("MANUAL cold plug");
-        atsaml10
-            .do_cold_plug(&mut interface)
-            .context("Failed to do cold plug")?;
+       let probes = Probe::list_all();
+       let mut probe = probes[0].open()?;
+       // This path doesn't work.
+       // let interface = probe.try_as_dap_probe()?;
+
+       // This path works, presumably because connecting
+       // causes the pins to switch to outputs.
+       // But now I don't want to attach and do everything automatically.
+       // log::warn!("MANUAL probe.attach");
+       //let mut session = probe.attach("ATSAML10E16A", Permissions::default())?;
+
+       // Attach without running any init routines (?).
+       log::warn!("MANUAL attach_to_unspecified");
+       probe.attach_to_unspecified()?;
+
+       log::warn!("MANUAL try_into_arm_interface");
+       let mut interface = probe.try_into_arm_interface().map_err(|(_, e)| e)?;
+
+       /*
+           // First, do a cold plug sequence.
+           // XXX Something before this is sending commands...
+           log::warn!("MANUAL cold plug");
+           atsaml10
+               .do_cold_plug(&mut interface)
+               .context("Failed to do cold plug")?;
+       */
+
+       // Don't know how to call this as a function...
+       {
+           let mut pin_out = Pins(0);
+           let mut pin_mask = Pins(0);
+
+           log::warn!("atsaml10 do_cold_plug()");
+
+           // 1 ms with reset high.
+           pin_out.set_nreset(true);
+           pin_mask.set_nreset(true);
+           interface.swj_pins(pin_out.0 as u32, pin_mask.0 as u32, 0)?;
+           thread::sleep(Duration::from_millis(1));
+
+           // 1 ms with reset low.
+           pin_out.set_nreset(false);
+           interface.swj_pins(pin_out.0 as u32, pin_mask.0 as u32, 0)?;
+           thread::sleep(Duration::from_millis(1));
+
+           // 1 ms with reset and clock low.
+           pin_mask.set_swclk_tck(true);
+           interface.swj_pins(pin_out.0 as u32, pin_mask.0 as u32, 0)?;
+           thread::sleep(Duration::from_millis(1));
+
+           // 1 ms with reset high.
+           pin_mask.set_swclk_tck(false);
+           pin_out.set_nreset(true);
+           interface.swj_pins(pin_out.0 as u32, pin_mask.0 as u32, 0)?;
+           thread::sleep(Duration::from_millis(1));
+       }
+
+       log::warn!("MANUAL initialize");
+       let mut interface = interface.initialize_unspecified()?;
+
+       log::warn!("MANUAL port");
+       let port = ApAddress {
+           dp: DpAddress::Default,
+           ap: 0,
+       };
+
+       let default_memory_ap = MemoryAp::new(port);
+
+       /*
+       log::warn!("MANUAL read_raw_ap_register");
+       let val = interface.read_raw_ap_register(port, 0)?;
+       log::warn!("val {}", val);
+       */
+
+       let atsaml10 = Atsaml10(());
+
+       log::warn!("MANUAL memory_interface");
+       // This runs a bunch of commands, but none of them seem to error.
+       let mut memory = interface.memory_interface(default_memory_ap)?;
+
+       // Now follow the CMD_EXIT to Park mode diagram (14-9 page 81).
+       log::warn!("MANUAL exit_reset_extension");
+       atsaml10.exit_reset_extension(&mut memory)?;
+       log::warn!("MANUAL exit_interactive_mode");
+       // By not clearing BREXT here we go into park mode.
+       atsaml10.exit_interactive_mode(&mut memory)?;
+
+       // Make sure the debug access level is 2 (unlocked).
+       log::warn!("MANUAL read DAL");
+       let dal = atsaml10.get_dal(&mut memory)?;
+       if dal != 2 {
+           return Err(anyhow!(
+               "Device is locked. DAL == {} != 2. Try erasing the chip to clear.",
+               dal
+           ));
+       }
     */
-
-    // Don't know how to call this as a function...
-    {
-        let mut pin_out = Pins(0);
-        let mut pin_mask = Pins(0);
-
-        log::warn!("atsaml10 do_cold_plug()");
-
-        // 1 ms with reset high.
-        pin_out.set_nreset(true);
-        pin_mask.set_nreset(true);
-        interface.swj_pins(pin_out.0 as u32, pin_mask.0 as u32, 0)?;
-        thread::sleep(Duration::from_millis(1));
-
-        // 1 ms with reset low.
-        pin_out.set_nreset(false);
-        interface.swj_pins(pin_out.0 as u32, pin_mask.0 as u32, 0)?;
-        thread::sleep(Duration::from_millis(1));
-
-        // 1 ms with reset and clock low.
-        pin_mask.set_swclk_tck(true);
-        interface.swj_pins(pin_out.0 as u32, pin_mask.0 as u32, 0)?;
-        thread::sleep(Duration::from_millis(1));
-
-        // 1 ms with reset high.
-        pin_mask.set_swclk_tck(false);
-        pin_out.set_nreset(true);
-        interface.swj_pins(pin_out.0 as u32, pin_mask.0 as u32, 0)?;
-        thread::sleep(Duration::from_millis(1));
-    }
-
-    log::warn!("MANUAL initialize");
-    let mut interface = interface.initialize_unspecified()?;
-
-    log::warn!("MANUAL port");
-    let port = ApAddress {
-        dp: DpAddress::Default,
-        ap: 0,
-    };
-
-    let default_memory_ap = MemoryAp::new(port);
-
-    /*
-    log::warn!("MANUAL read_raw_ap_register");
-    let val = interface.read_raw_ap_register(port, 0)?;
-    log::warn!("val {}", val);
-    */
-
-    let atsaml10 = Atsaml10(());
-
-    log::warn!("MANUAL memory_interface");
-    // This runs a bunch of commands, but none of them seem to error.
-    let mut memory = interface.memory_interface(default_memory_ap)?;
-
-    // Now follow the CMD_EXIT to Park mode diagram (14-9 page 81).
-    log::warn!("MANUAL exit_reset_extension");
-    atsaml10.exit_reset_extension(&mut memory)?;
-    log::warn!("MANUAL exit_interactive_mode");
-    // By not clearing BREXT here we go into park mode.
-    atsaml10.exit_interactive_mode(&mut memory)?;
-
-    // Make sure the debug access level is 2 (unlocked).
-    log::warn!("MANUAL read DAL");
-    let dal = atsaml10.get_dal(&mut memory)?;
-    if dal != 2 {
-        return Err(anyhow!(
-            "Device is locked. DAL == {} != 2. Try erasing the chip to clear.",
-            dal
-        ));
-    }
 
     // Get the target definition.
     let target = probe_rs::config::get_target_by_name("ATSAML10E16A")?;
@@ -251,7 +253,7 @@ fn main() -> Result<()> {
     let mut loader = FlashLoader::new(target.memory_map.to_vec(), target.source().clone());
 
     // Add data to the flash loader from an ELF file.
-    let elf_path = Path::new("/Users/dwatson/work/fridge_monitor/src/fridge_sensor_rs/target/thumbv8m.base-none-eabi/release/blink --connect-under-reset");
+    let elf_path = Path::new("/Users/dwatson/work/fridge_monitor/src/fridge_sensor_rs/target/thumbv8m.base-none-eabi/release/blink");
     let mut file = File::open(&elf_path)?;
     loader.load_elf_data(&mut file)?;
 
