@@ -1,8 +1,11 @@
 use anyhow::{anyhow, Context, Result};
 use probe_rs::architecture::arm::ap::MemoryAp;
 use probe_rs::architecture::arm::{ApAddress, ArmProbeInterface, DpAddress, Pins};
+use probe_rs::flashing::FlashLoader;
 use probe_rs::Memory;
 use probe_rs::{Permissions, Probe};
+use std::fs::File;
+use std::path::Path;
 use std::thread;
 use std::time::Duration;
 
@@ -239,6 +242,17 @@ fn main() -> Result<()> {
             dal
         ));
     }
+
+    // Get the target definition.
+    let target = probe_rs::config::get_target_by_name("ATSAML10E16A")?;
+
+    // Create a flash loader.
+    let mut loader = FlashLoader::new(target.memory_map.to_vec(), target.source().clone());
+
+    // Add data to the flash loader from an ELF file.
+    let elf_path = Path::new("/Users/dwatson/work/fridge_monitor/src/fridge_sensor_rs/target/thumbv8m.base-none-eabi/release/blink --connect-under-reset");
+    let mut file = File::open(&elf_path)?;
+    loader.load_elf_data(&mut file)?;
 
     log::warn!("MANUAL exit");
     Ok(())
