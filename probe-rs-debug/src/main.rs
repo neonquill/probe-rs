@@ -158,6 +158,7 @@ fn main() -> Result<()> {
     log::warn!("MANUAL attach_to_unspecified");
     probe.attach_to_unspecified()?;
 
+    /*
     log::warn!("MANUAL try_into_arm_interface");
     let interface = probe.try_into_arm_interface().map_err(|(_, e)| e)?;
 
@@ -182,6 +183,7 @@ fn main() -> Result<()> {
     log::warn!("MANUAL read_raw_ap_register");
     let val = interface.read_raw_ap_register(port, 0)?;
     log::warn!("val {}", val);
+     */
 
     /*
     log::warn!("MANUAL memory_interface");
