@@ -17,6 +17,13 @@ use std::path::Path;
 use std::thread;
 use std::time::Duration;
 
+#[derive(PartialEq, Eq, PartialOrd, Ord)]
+struct DataChunk {
+    address: u32,
+    segment_offset: u64,
+    segment_filesize: u64,
+}
+
 pub struct Atsaml10(());
 
 impl Atsaml10 {
@@ -273,7 +280,7 @@ fn main() -> Result<()> {
     let endian = obj_file.endian();
     println!("Endian {:?}", endian);
 
-    // let extracted_data = Vec::new();
+    let mut extracted_data = Vec::new();
 
     for segment in obj_file.raw_segments() {
         let p_type = segment.p_type(endian);
@@ -313,8 +320,39 @@ fn main() -> Result<()> {
             continue;
         }
 
-        let section_data = &bin_data[segment_offset as usize..][..segment_filesize as usize];
-        hexdump::hexdump(section_data);
+        extracted_data.push(DataChunk {
+            address: p_paddr,
+            segment_offset,
+            segment_filesize,
+        });
+    }
+
+    extracted_data.sort();
+
+    let mut flash_data = Vec::new();
+    for chunk in extracted_data {
+        match flash_data.pop() {
+            None => flash_data.push(chunk),
+            Some(prev) => {
+                let prev_len: u32 = prev.segment_filesize.try_into()?;
+                let next_addr = prev.address + prev_len;
+                if next_addr == chunk.address {
+                    flash_data.push(DataChunk {
+                        address: prev.address,
+                        segment_offset: prev.segment_offset,
+                        segment_filesize: prev.segment_filesize + chunk.segment_filesize,
+                    });
+                } else {
+                    flash_data.push(prev);
+                    flash_data.push(chunk);
+                }
+            }
+        }
+    }
+
+    for chunk in flash_data {
+        let data = &bin_data[chunk.segment_offset as usize..][..chunk.segment_filesize as usize];
+        hexdump::hexdump(data);
     }
 
     // Actually do the flash.
