@@ -159,20 +159,53 @@ fn main() -> Result<()> {
     probe.attach_to_unspecified()?;
 
     log::warn!("MANUAL try_into_arm_interface");
-    let interface = probe.try_into_arm_interface().map_err(|(_, e)| e)?;
+    let mut interface = probe.try_into_arm_interface().map_err(|(_, e)| e)?;
+
+    /*
+        // First, do a cold plug sequence.
+        // XXX Something before this is sending commands...
+        log::warn!("MANUAL cold plug");
+        atsaml10
+            .do_cold_plug(&mut interface)
+            .context("Failed to do cold plug")?;
+    */
+
+    // Don't know how to call this as a function...
+    {
+        let mut pin_out = Pins(0);
+        let mut pin_mask = Pins(0);
+
+        log::warn!("atsaml10 do_cold_plug()");
+
+        // 1 ms with reset high.
+        pin_out.set_nreset(true);
+        pin_mask.set_nreset(true);
+        interface.swj_pins(pin_out.0 as u32, pin_mask.0 as u32, 0)?;
+        thread::sleep(Duration::from_millis(1));
+
+        // 1 ms with reset low.
+        pin_out.set_nreset(false);
+        interface.swj_pins(pin_out.0 as u32, pin_mask.0 as u32, 0)?;
+        thread::sleep(Duration::from_millis(1));
+
+        // 1 ms with reset and clock low.
+        pin_mask.set_swclk_tck(true);
+        interface.swj_pins(pin_out.0 as u32, pin_mask.0 as u32, 0)?;
+        thread::sleep(Duration::from_millis(1));
+
+        // 1 ms with reset high.
+        pin_mask.set_swclk_tck(false);
+        pin_out.set_nreset(true);
+        interface.swj_pins(pin_out.0 as u32, pin_mask.0 as u32, 0)?;
+        thread::sleep(Duration::from_millis(1));
+    }
 
     log::warn!("MANUAL initialize");
     let mut interface = interface.initialize_unspecified()?;
 
     /*
-    let atsaml10 = Atsaml10(());
 
-    // First, do a cold plug sequence.
-    // XXX Something before this is sending commands...
-    log::warn!("MANUAL cold plug");
-    atsaml10
-        .do_cold_plug(&mut interface)
-        .context("Failed to do cold plug")?;
+    let atsaml10 = Atsaml10(());
 
     log::warn!("MANUAL port");
     let port = ApAddress {
