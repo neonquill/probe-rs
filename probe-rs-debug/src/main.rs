@@ -167,6 +167,7 @@ fn main() -> Result<()> {
     let atsaml10 = Atsaml10(());
 
     // First, do a cold plug sequence.
+    // XXX Something before this is sending commands...
     log::warn!("MANUAL cold plug");
     atsaml10
         .do_cold_plug(&mut interface)
