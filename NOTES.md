@@ -1725,3 +1725,9 @@ XXXF2 - `reset_hardware_deassert` is messing with the pins and probably
 messing things up.
 
 XXXF3 appears to be the thing that's timing out.
+
+
+---
+
+Ok, current code doesn't work because I'm reseting the chip without
+re-connecting (code in debug_port_setup).

@@ -6,7 +6,10 @@ use std::time::Duration;
 
 use super::ArmDebugSequence;
 use crate::architecture::arm::ap::MemoryAp;
+use crate::architecture::arm::RawDapAccess;
 use crate::architecture::arm::{communication_interface::DapProbe, ArmProbeInterface, Pins};
+use crate::Memory;
+use probe_rs_target::CoreType;
 
 /// An error occurred when executing an ARM debug sequence
 #[derive(thiserror::Error, Debug)]
@@ -177,12 +180,59 @@ impl ArmDebugSequence for Atsaml10 {
         Ok(())
     }
 
+    // XXX I don't really understand the deassert name here...
+    fn reset_hardware_deassert(&self, memory: &mut Memory) -> Result<(), crate::Error> {
+        log::warn!("reset_hardware_deassert");
+        // XXX Copy of do_cold_plug.
+        // XXX Can't figure out the types :(
+        {
+            let interface = memory.get_arm_probe();
+
+            let mut pin_out = Pins(0);
+            let mut pin_mask = Pins(0);
+
+            log::warn!("atsaml10 do_cold_plug()");
+
+            // 1 ms with reset high.
+            pin_out.set_nreset(true);
+            pin_mask.set_nreset(true);
+            interface.swj_pins(pin_out.0 as u32, pin_mask.0 as u32, 0)?;
+            thread::sleep(Duration::from_millis(1));
+
+            // 1 ms with reset low.
+            pin_out.set_nreset(false);
+            interface.swj_pins(pin_out.0 as u32, pin_mask.0 as u32, 0)?;
+            thread::sleep(Duration::from_millis(1));
+
+            // 1 ms with reset and clock low.
+            pin_mask.set_swclk_tck(true);
+            interface.swj_pins(pin_out.0 as u32, pin_mask.0 as u32, 0)?;
+            thread::sleep(Duration::from_millis(1));
+
+            // 1 ms with reset high.
+            pin_mask.set_swclk_tck(false);
+            pin_out.set_nreset(true);
+            interface.swj_pins(pin_out.0 as u32, pin_mask.0 as u32, 0)?;
+            thread::sleep(Duration::from_millis(1));
+        }
+
+        self.exit_reset_extension(memory)?;
+        self.exit_interactive_mode(memory)?;
+
+        Ok(())
+    }
+
     fn debug_device_unlock(
         &self,
         interface: &mut Box<dyn ArmProbeInterface>,
         default_ap: MemoryAp,
         _permissions: &crate::Permissions,
     ) -> Result<(), crate::Error> {
+        log::warn!("XXX atsaml10 debug_device_unlock");
+
+        // XXX Put back the chip erase code here?
+
+        // XXX For some reason, I need to do this here...
         let mut memory = interface.memory_interface(default_ap)?;
         self.exit_reset_extension(&mut memory)?;
         self.exit_interactive_mode(&mut memory)?;
