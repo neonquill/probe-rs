@@ -1,4 +1,10 @@
 use anyhow::{anyhow, Context, Result};
+use object::elf::FileHeader32;
+use object::elf::PT_LOAD;
+use object::read::elf::ProgramHeader;
+use object::Endianness;
+use object::ObjectSection;
+use object::{Object, ObjectSegment, SegmentFlags};
 use probe_rs::architecture::arm::ap::MemoryAp;
 use probe_rs::architecture::arm::{ApAddress, ArmProbeInterface, DpAddress, Pins};
 use probe_rs::flashing::DownloadOptions;
@@ -256,6 +262,32 @@ fn main() -> Result<()> {
     let elf_path = Path::new("/Users/dwatson/work/fridge_monitor/src/fridge_sensor_rs/target/thumbv8m.base-none-eabi/release/blink");
     let mut file = File::open(&elf_path)?;
     loader.load_elf_data(&mut file)?;
+
+    // Manually implement the flasher.
+
+    // First figure out how to read the data from the elf file.
+    let bin_data = std::fs::read("/Users/dwatson/work/fridge_monitor/src/fridge_sensor_rs/target/thumbv8m.base-none-eabi/release/blink")?;
+    let obj_file = object::read::elf::ElfFile::<FileHeader32<Endianness>>::parse(&*bin_data)?;
+
+    let endian = obj_file.endian();
+    println!("Endian {:?}", endian);
+
+    for segment in obj_file.raw_segments() {
+        let p_type = segment.p_type(endian);
+        let segment_data = segment
+            .data(endian, &*bin_data)
+            .map_err(|_| anyhow!("Failed to access data in segment"))?;
+
+        println!("Type {}", p_type);
+        if segment_data.is_empty() || p_type != PT_LOAD {
+            continue;
+        }
+        println!("Segment {:?}", segment.p_type);
+    }
+
+    for section in obj_file.sections() {
+        println!("Section {:?}", section.name()?);
+    }
 
     // Actually do the flash.
     let _opt = DownloadOptions::default();

@@ -10,3 +10,4 @@ probe-rs = { path = "../probe-rs" }
 simplelog = "^0.12.0"
 log = "0.4"
 anyhow = "1.0"
+object = "0.29"
