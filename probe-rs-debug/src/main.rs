@@ -158,10 +158,10 @@ fn main() -> Result<()> {
     log::warn!("MANUAL attach_to_unspecified");
     probe.attach_to_unspecified()?;
 
-    /*
     log::warn!("MANUAL try_into_arm_interface");
     let interface = probe.try_into_arm_interface().map_err(|(_, e)| e)?;
 
+    /*
     log::warn!("MANUAL initialize");
     let mut interface = interface.initialize_unspecified()?;
 
