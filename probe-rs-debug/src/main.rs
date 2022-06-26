@@ -7,6 +7,7 @@ use object::ObjectSection;
 use object::{Object, ObjectSegment, SegmentFlags};
 use probe_rs::architecture::arm::ap::MemoryAp;
 use probe_rs::architecture::arm::{ApAddress, ArmProbeInterface, DpAddress, Pins};
+use probe_rs::config::MemoryRange;
 use probe_rs::flashing::DownloadOptions;
 use probe_rs::flashing::FlashLoader;
 use probe_rs::Memory;
@@ -283,10 +284,20 @@ fn main() -> Result<()> {
             continue;
         }
         println!("Segment {:?}", segment.p_type);
-    }
 
-    for section in obj_file.sections() {
-        println!("Section {:?}", section.name()?);
+        let (segment_offset, segment_filesize) = segment.file_range(endian);
+
+        let sector: core::ops::Range<u64> = segment_offset..segment_offset + segment_filesize;
+
+        for section in obj_file.sections() {
+            let (section_offset, section_filesize) = match section.file_range() {
+                Some(range) => range,
+                None => continue,
+            };
+            if sector.contains_range(&(section_offset..section_offset + section_filesize)) {
+                println!("Matching section: {:?}", section.name()?);
+            }
+        }
     }
 
     // Actually do the flash.
